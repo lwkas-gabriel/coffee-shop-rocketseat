@@ -19,6 +19,7 @@ export const HeaderContainer = styled.header`
             background-color: ${props => props.theme["purple-light"]};
             padding: 8px;
             border-radius: 6px;
+            cursor: pointer;
             
             p{
                 color: ${props => props.theme["purple-dark"]};
@@ -32,6 +33,7 @@ export const HeaderContainer = styled.header`
             color: ${props => props.theme["yellow-dark"]};
             background-color: ${props => props.theme["yellow-light"]};
             padding: 8px;
+            border-radius: 6px;
         }
 
     }
