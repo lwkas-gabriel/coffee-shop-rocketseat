@@ -55,30 +55,27 @@ export const BulletContaier = styled.div`
     
 `;
 
-const Bullet = styled.div`
+export const Bullet = styled.div`
     display: flex;
     align-items: center;
     padding: 8px;
     width: fit-content;
     border-radius: 1000px;
-`
-
-export const BulletVariationOrange = styled(Bullet)`
     color:  ${props => props.theme["white"]};
-    background-color: ${props => props.theme["yellow-dark"]};
-`
 
-export const BulletVariationBlack = styled(Bullet)`
-    color:  ${props => props.theme["white"]};
-    background-color: ${props => props.theme["base-text"]};
-`
+    &.orange{
+        background-color: ${props => props.theme["yellow-dark"]};
+    }
 
-export const BulletVariationYellow = styled(Bullet)`
-    color:  ${props => props.theme["white"]};
-    background-color: ${props => props.theme.yellow};
-`
+    &.black{
+        background-color: ${props => props.theme["base-text"]};
+    }
 
-export const BulletVariationPurple = styled(Bullet)`
-    color:  ${props => props.theme["white"]};
-    background-color: ${props => props.theme["purple"]};
+    &.yellow{
+        background-color: ${props => props.theme.yellow};
+    }
+
+    &.purple{
+        background-color: ${props => props.theme["purple"]};
+    }
 `

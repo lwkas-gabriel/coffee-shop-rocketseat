@@ -1,6 +1,6 @@
 import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 import image from "../../assets/copo-marca.png"
-import { Container, InfoSection, Info, BulletsContainer, BulletContaier, BulletVariationOrange, BulletVariationBlack, BulletVariationYellow, BulletVariationPurple } from "./styles";
+import { Container, InfoSection, Info, BulletsContainer, BulletContaier, Bullet } from "./styles";
 
 export function Home(){
     return (
@@ -13,27 +13,27 @@ export function Home(){
                     </Info>
                     <BulletsContainer>
                         <BulletContaier>
-                            <BulletVariationOrange>
+                            <Bullet className="orange">
                                 <ShoppingCart size={16} weight="fill" />
-                            </BulletVariationOrange>
+                            </Bullet>
                             <p>Compra simples e segura</p>
                         </BulletContaier>
                         <BulletContaier>
-                            <BulletVariationBlack>
+                            <Bullet className="black">
                                 <Package size={16} weight="fill" />
-                            </BulletVariationBlack>
+                            </Bullet>
                             <p>Embalagem mantém o café intacto</p>
                         </BulletContaier>
                         <BulletContaier>
-                            <BulletVariationYellow>
+                            <Bullet className="yellow">
                                 <Timer size={16} weight="fill" />
-                            </BulletVariationYellow>
+                            </Bullet>
                             <p>Entrega rápida e rastreada</p>
                         </BulletContaier>
                         <BulletContaier>
-                            <BulletVariationPurple>
+                            <Bullet className="purple">
                                 <Coffee size={16} weight="fill" />
-                            </BulletVariationPurple>
+                            </Bullet>
                             <p>O café chega fresquinho até você</p>
                         </BulletContaier>
                     </BulletsContainer>
