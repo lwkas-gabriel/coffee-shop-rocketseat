@@ -4,6 +4,7 @@ export const MainContainer = styled.main`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 50px;
 `
 
 export const BannerSection = styled.section`
