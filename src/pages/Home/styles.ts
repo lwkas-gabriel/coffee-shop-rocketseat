@@ -1,11 +1,18 @@
 import styled from "styled-components";
 
-export const Container = styled.main`
+export const MainContainer = styled.main`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const BannerSection = styled.section`
     display: flex;
     flex-direction: row;
     justify-content: center;
     margin-top: 92px;
     gap: 56px;
+    max-width: 90%;
 `
 
 export const InfoSection = styled.section`
@@ -78,4 +85,32 @@ export const Bullet = styled.div`
     &.purple{
         background-color: ${props => props.theme["purple"]};
     }
+`
+
+export const StoreSection = styled.section`
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    margin-top: 152px;
+    margin-bottom: 50px;
+
+    h2{
+        text-align: left;
+        font-family: "Baloo 2";
+        color: ${props => props.theme["base-subtitle"]};
+        margin-bottom: 54px;
+        font-weight: bolder;
+        line-height: 130%;
+        font-size: 32px;
+    }
+`
+
+export const CardsContainer = styled.div`
+    display: flex;
+    max-width: 1120px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
 `
