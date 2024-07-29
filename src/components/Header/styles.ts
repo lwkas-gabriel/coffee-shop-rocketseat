@@ -2,9 +2,12 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.header`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    padding: 32px 0 32px 0;
+    padding: 20px 10% 20px 10%;
+    width: 100%;
+    position: fixed;
+    background-color: ${props => props.theme.white};
 
     nav{
         display: flex;
