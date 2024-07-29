@@ -11,9 +11,23 @@ export const BannerSection = styled.section`
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     margin-top: 92px;
     gap: 56px;
     max-width: 90%;
+
+    @media (max-width:1024px){
+        flex-direction: column-reverse;
+
+        img{
+            max-width: inherit;
+        }
+    }
+
+    /* img{
+        height: 50%;
+        width: 50%;
+    } */
 `
 
 export const InfoSection = styled.section`
@@ -49,6 +63,10 @@ export const BulletsContainer = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
+
+    @media (max-width:600px) {
+        justify-content: center;
+    }
 `
 
 export const BulletContaier = styled.div`
