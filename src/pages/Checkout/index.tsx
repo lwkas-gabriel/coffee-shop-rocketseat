@@ -1,5 +1,6 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react";
-import { ContainerMain, FormContainer, PaymentOptions, PaymentSelectionSection, SectionForm } from "./styles";
+import { CheckoutPriceConfirmationContainer, CheckoutPriceContainer, ConfirmButton, ContainerMain, FormContainer, PaymentOptions, PaymentSelectionSection, SectionForm, TotalInfo } from "./styles";
+import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
 
 export function Checkout(){
     return (
@@ -22,10 +23,10 @@ export function Checkout(){
                 <PaymentSelectionSection>
                     <div>
                         <CurrencyDollar size={16}/>
-                        <span>
+                        <div>
                             <h5>Pagamento</h5>
                             <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
-                        </span>
+                        </div>
                     </div>
                     <PaymentOptions>
                         <button>
@@ -50,17 +51,37 @@ export function Checkout(){
                 </PaymentSelectionSection>
             </SectionForm>
 
-            <section>
+            <CheckoutPriceContainer>
                 <h4>Cafés selecionados</h4>
-                <div>
-                    <h1>teste</h1>
-                    <h1>teste2</h1>
-                    <div>
-
+                <CheckoutPriceConfirmationContainer>
+                    
+                    <div className="container">
+                        <CoffeeQuantitySelector />
+                        <CoffeeQuantitySelector />
+                        <CoffeeQuantitySelector />
                     </div>
-                    <button>CONFIRMAR PEDIDO</button>
-                </div>
-            </section>
+                    
+                    <TotalInfo>
+                        <span>
+                            <p>Total de Itens</p>
+                            <p>R$ 29,70</p>
+                        </span>
+
+                        <span>
+                            <p>Entrega</p>
+                            <p>R$ 3,50</p>
+                        </span>
+
+                        <span>
+                            <p><strong>Total</strong></p>
+                            <p><strong>R$ 33,20</strong></p>
+                        </span>
+                        
+                    </TotalInfo>
+                    <ConfirmButton>CONFIRMAR PEDIDO</ConfirmButton>
+                </CheckoutPriceConfirmationContainer>
+            </CheckoutPriceContainer>
+
         </ContainerMain>
     );
 }

@@ -7,8 +7,9 @@ export const ContainerMain = styled.main`
     gap: 32px;
     line-height: 130%;
 
-    @media (max-width:800px){
-        flex-direction: column-reverse;
+    @media (max-width:1100px){
+        align-items: center;
+        flex-direction: column;
     }
 `
 
@@ -21,10 +22,6 @@ export const SectionForm = styled.section`
         font-family: "Baloo 2", sans-serif;
         font-weight: bold;
         font-size: 18px;
-    }
-
-    @media (max-width:800px){
-        align-items: center;
     }
 
 `
@@ -62,11 +59,10 @@ export const FormContainer = styled.div`
 `
 
 export const PaymentSelectionSection = styled.div`
-    width: 640px;
+    max-width: 100%;
     border-radius: 6px;
     background-color: ${props => props.theme["base-card"]};
     padding: 40px;
-    max-width: 90%;
 
 
     div{
@@ -74,7 +70,10 @@ export const PaymentSelectionSection = styled.div`
         color: ${props => props.theme["purple"]};
         gap: 12px;
 
-        span{ 
+        div{
+            display: flex;
+            flex-direction: column;
+
             h5{
                 font-size: 16px;
                 font-weight: 400;
@@ -99,7 +98,8 @@ export const PaymentOptions = styled.div`
     }
 
     button{
-        width: 178px;
+        min-width: 178px;
+        width: fit-content;
         display: flex;
         align-items: center;
         gap: 12px;
@@ -121,3 +121,70 @@ export const PaymentOptions = styled.div`
 
     }
 `
+
+export const CheckoutPriceContainer = styled.section`
+    display: flex;
+    flex-direction: column;
+    max-width: 448px;
+    flex-grow: 1;
+
+    h4{
+        font-family: "Baloo 2";
+        font-size: 18px;
+        color: ${props => props.theme["base-subtitle"]};
+
+    }
+
+    @media (max-width:800px){
+        align-items: center;
+    }
+
+
+`
+
+export const CheckoutPriceConfirmationContainer = styled.div`
+    background-color: ${props => props.theme["base-card"]};
+    padding: 40px;
+    margin-top: 15px;
+    border-top-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+`
+
+export const TotalInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 25px;
+
+    span{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+`
+
+export const ConfirmButton = styled.button`
+    width: 100%;
+    border-radius: 6px;
+    border: none;
+    padding: 12px 0 12px 0;
+    color: ${props => props.theme["white"]};
+    background-color: ${props => props.theme["yellow"]};
+    margin-top: 24px;
+    transition: 0.5s;
+
+    &:hover{
+        background-color: ${props => props.theme["yellow-dark"]};
+    }
+`
+
