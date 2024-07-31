@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ContainerMain = styled.main`
     display: flex;
+    width: 100%;
     justify-content: center;
     padding-top: 140px;
     gap: 32px;
@@ -15,6 +16,7 @@ export const ContainerMain = styled.main`
 
 export const SectionForm = styled.section`
     width: 640px;
+    max-width: 90%;
     display: flex;
     flex-direction: column;
 
@@ -89,16 +91,22 @@ export const PaymentSelectionSection = styled.div`
 `
 
 export const PaymentOptions = styled.div`
-    max-width: 100%;
+    max-width: fit-content;
     display: flex;
     justify-content: space-evenly;
     margin-top: 32px;
+
+    @media (max-width:560px){
+        justify-content: center;
+        flex-direction: column;
+    }
+
     div{
         color: ${props => props.theme["light"]};
     }
 
     button{
-        min-width: 178px;
+        max-width: 178px;
         width: fit-content;
         display: flex;
         align-items: center;
