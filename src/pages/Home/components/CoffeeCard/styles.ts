@@ -109,26 +109,4 @@ export const Input = styled.div`
             }
         }
     }
-
-    input{
-        width: fit-content;
-        height: 38px;
-        padding: 9px 0 9px 0;
-        background-color: ${props => props.theme["base-button"]};
-        border: none;
-
-        &::-webkit-outer-spin-button{
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            margin: 0;
-        }
-
-        &::-webkit-inner-spin-button{
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            margin: 0;
-        }
-    }
 `

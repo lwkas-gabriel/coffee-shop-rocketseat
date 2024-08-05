@@ -1,6 +1,7 @@
 import { ShoppingCart } from "@phosphor-icons/react";
 import americano from "../../../../assets/Type=Americano.png"
 import { CardContainer, Input, PriceContainer } from "./styles";
+import { InputQuantitySelection } from "../../../../components/InputQuatitySelection";
 
 export function CoffeeCard(){
     return (
@@ -14,16 +15,7 @@ export function CoffeeCard(){
             <PriceContainer>
                 <p>R$ <strong>9,90</strong></p>
                 <Input>
-                    <button>
-                        -
-                    </button>
-
-                    <input type="number" placeholder="0" min={0} />
-
-                    <button>
-                        +
-                    </button>
-
+                    <InputQuantitySelection />
                     <button className="cartButton">
                         <ShoppingCart size={22} weight="fill" />
                     </button>
