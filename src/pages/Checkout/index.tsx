@@ -2,7 +2,17 @@ import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-i
 import { CheckoutPriceConfirmationContainer, CheckoutPriceContainer, ConfirmButton, ContainerMain, FormContainer, PaymentOptions, PaymentSelectionSection, SectionForm, TotalInfo } from "./styles";
 import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
 
+
+// const newCheckoutFormValidationSchema = zod.object({
+
+// })
+
 export function Checkout(){
+
+    function handleCreateNewCheckout(){
+
+    }
+
     return (
         <ContainerMain>
             <SectionForm>
@@ -16,14 +26,14 @@ export function Checkout(){
                         </div>
                     </div>
 
-                    <form action="">
+                    <form action="" onSubmit={handleCreateNewCheckout}>
                         <div className="first-section">
                             <input className="cep" type="text" placeholder="CEP"/>
                             <input type="text" placeholder="Rua"/>
                         </div>
                         <div className="second-section">
                             <input type="text" placeholder="Número"/>
-                            <input type="text" placeholder="Complemento"/>
+                            <input className="complement" type="text" placeholder="Complemento"/>
                         </div>
                         <div  className="third-section">
                             <input type="text" placeholder="Bairro"/>

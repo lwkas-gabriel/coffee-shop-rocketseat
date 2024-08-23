@@ -79,14 +79,21 @@ export const FormContainer = styled.div`
             }
 
             .first-section{
+                display: flex;
+                max-width: inherit;
                 .cep{
-                    width: 200px;
+                    max-width: 200px;
                 }
             }
 
             .second-section{
                 display: flex;
                 flex-direction: row;
+
+                .complement{
+                    /* position: absolute; */
+                    content: 'opcional';
+                }
 
                 :last-child{
                     flex: 1;
