@@ -36,10 +36,11 @@ export const FormContainer = styled.div`
 
     div{
         display: flex;
+        flex-direction: column;
         gap: 8px;
         color: ${props => props.theme["yellow-dark"]};
 
-        div{
+        .title{
             display: flex;
             flex-direction: column;
             
@@ -53,11 +54,62 @@ export const FormContainer = styled.div`
                 color: ${props => props.theme["base-text"]};
             }
         }
+    }
 
         form{
+            display: flex;
+            flex-direction: column;
+            gap:1rem;
+            margin-top: 32px;
+            flex-wrap: wrap;
 
+            input[type=text]{
+                height: 42px;
+                padding-left: 12px;
+                background-color: ${props => props.theme["base-button"]};
+                border: transparent;
+                border-radius: 4px;
+                color: ${props => props.theme["base-text"]};
+                font-size: 14px;
+
+                &:focus{
+                    outline: none;
+                    box-shadow: 0 0 0 1px ${props => props.theme["yellow-dark"]};
+                }
+            }
+
+            .first-section{
+                .cep{
+                    width: 200px;
+                }
+            }
+
+            .second-section{
+                display: flex;
+                flex-direction: row;
+
+                :last-child{
+                    flex: 1;
+                }
+            }
+
+            .third-section{
+                display: flex;
+                flex-direction: row;
+
+                :first-child{
+                    width: 200px;
+                }
+
+                :nth-child(2){
+                    flex: 1;
+                }
+
+                :last-child{
+                    width: 60px;
+                }
+            }
         }
-    }
 `
 
 export const PaymentSelectionSection = styled.div`

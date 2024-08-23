@@ -10,13 +10,26 @@ export function Checkout(){
                 <FormContainer>
                     <div>
                         <MapPinLine size={16} />
-                        <div>
+                        <div className="title">
                             <h5>Endereço de Entrega</h5>
                             <p>Informe o endereço onde deseja receber seu pedido</p>
                         </div>
                     </div>
-                    <form action="">
 
+                    <form action="">
+                        <div className="first-section">
+                            <input className="cep" type="text" placeholder="CEP"/>
+                            <input type="text" placeholder="Rua"/>
+                        </div>
+                        <div className="second-section">
+                            <input type="text" placeholder="Número"/>
+                            <input type="text" placeholder="Complemento"/>
+                        </div>
+                        <div  className="third-section">
+                            <input type="text" placeholder="Bairro"/>
+                            <input type="text" placeholder="Cidade"/>
+                            <input type="text" placeholder="UF"/>
+                        </div>
                     </form>
                 </FormContainer>
 
