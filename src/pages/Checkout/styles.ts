@@ -28,6 +28,27 @@ export const SectionForm = styled.section`
 
 `
 
+
+export const Input = styled.input`
+        height: 42px;
+        padding-left: 12px;
+        background-color: ${props => props.theme["base-button"]};
+        border: transparent;
+        border-radius: 4px;
+        color: ${props => props.theme["base-text"]};
+        font-size: 14px;
+        //min-width: 200px;
+
+        &:focus{
+            outline: none;
+            box-shadow: 0 0 0 1px ${props => props.theme["yellow-dark"]};
+        }
+
+        @media (max-width: 560px) {
+            width: 100%;
+        }
+`
+
 export const FormContainer = styled.div`
     padding: 40px;
     margin: 15px 0 12px 0;
@@ -56,67 +77,79 @@ export const FormContainer = styled.div`
         }
     }
 
-        form{
+    form{
+        display: flex;
+        flex-direction: column;
+        gap:1rem;
+        margin-top: 32px;
+        flex-wrap: wrap;
+
+        .first-section{
             display: flex;
-            flex-direction: column;
-            gap:1rem;
-            margin-top: 32px;
+            width: 100%;
             flex-wrap: wrap;
+            min-width: 100%;
 
-            input[type=text]{
-                height: 42px;
-                padding-left: 12px;
-                background-color: ${props => props.theme["base-button"]};
-                border: transparent;
-                border-radius: 4px;
-                color: ${props => props.theme["base-text"]};
-                font-size: 14px;
+            .cep{
+                max-width: 200px;
+            }
+        }
 
-                &:focus{
-                    outline: none;
-                    box-shadow: 0 0 0 1px ${props => props.theme["yellow-dark"]};
-                }
+        .second-section{
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            flex-wrap: wrap;
+            min-width: 100%;
+
+            :last-child{
+                flex: 1;
+            }
+        }
+
+        .third-section{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            :first-child{
+                max-width: 200px;
             }
 
+            :nth-child(2){
+                flex: 1;
+            }
+
+            :last-child{
+                width: 60px;
+            }
+        }
+
+        @media (max-width: 560px) {
             .first-section{
-                display: flex;
-                max-width: inherit;
                 .cep{
-                    max-width: 200px;
-                }
-            }
-
-            .second-section{
-                display: flex;
-                flex-direction: row;
-
-                .complement{
-                    /* position: absolute; */
-                    content: 'opcional';
-                }
-
-                :last-child{
-                    flex: 1;
+                    max-width: 100%;
                 }
             }
 
             .third-section{
-                display: flex;
-                flex-direction: row;
+                flex-direction: column;
 
                 :first-child{
-                    width: 200px;
+                    max-width: 100%;
                 }
 
                 :nth-child(2){
-                    flex: 1;
+                    flex: none;
+                    width: 100%;
                 }
 
                 :last-child{
-                    width: 60px;
+                    width: 100%;
                 }
             }
         }
+    }
 `
 
 export const PaymentSelectionSection = styled.div`
@@ -124,7 +157,6 @@ export const PaymentSelectionSection = styled.div`
     border-radius: 6px;
     background-color: ${props => props.theme["base-card"]};
     padding: 40px;
-
 
     div{
         display: flex;
@@ -183,9 +215,6 @@ export const PaymentOptions = styled.div`
             color: ${props => props.theme["base-subtitle"]};
             background-color: ${props => props.theme["base-hover"]};
         }
-
-
-
     }
 `
 
