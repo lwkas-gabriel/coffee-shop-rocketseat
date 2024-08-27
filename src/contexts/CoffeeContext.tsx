@@ -1,17 +1,18 @@
-import ExpressoTradicional from "../../../../assets/Type=Expresso.png";
-import ExpressoAmericano from "../../../../assets/Type=Americano.png";
-import ExpressoCremoso from "../../../../assets/Type=ExpressoCremoso.png";
-import ExpressoGelado from "../../../../assets/Type=CaféGelado.png";
-import CafeComLeite from "../../../../assets/Type=CaféComLeite.png";
-import Latte from "../../../../assets/Type=Latte.png";
-import Capuccino from "../../../../assets/Type=Capuccino.png";
-import Macchiato from "../../../../assets/Type=Macchiato.png";
-import Mocaccino from "../../../../assets/Type=Mochaccino.png";
-import ChocolateQuente from "../../../../assets/Type=ChocolateQuente.png";
-import Cubano from "../../../../assets/Type=Cubano.png";
-import Havaiano from "../../../../assets/Type=Havaiano.png";
-import Arabe from "../../../../assets/Type=Arabe.png";
-import Irlandes from "../../../../assets/Type=Irlandes.png";
+import ExpressoTradicional from "../assets/Type=Expresso.png";
+import ExpressoAmericano from "../assets/Type=Americano.png";
+import ExpressoCremoso from "../assets/Type=ExpressoCremoso.png";
+import ExpressoGelado from "../assets/Type=CaféGelado.png";
+import CafeComLeite from "../assets/Type=CaféComLeite.png";
+import Latte from "../assets/Type=Latte.png";
+import Capuccino from "../assets/Type=Capuccino.png";
+import Macchiato from "../assets/Type=Macchiato.png";
+import Mocaccino from "../assets/Type=Mochaccino.png";
+import ChocolateQuente from "../assets/Type=ChocolateQuente.png";
+import Cubano from "../assets/Type=Cubano.png";
+import Havaiano from "../assets/Type=Havaiano.png";
+import Arabe from "../assets/Type=Arabe.png";
+import Irlandes from "../assets/Type=Irlandes.png";
+import { createContext, ReactNode, useState } from "react";
 
 const CoffeeList = [
     {id: 1, img: ExpressoTradicional, tags: ["Tradicional"], description: "O tradicional café feito com água quente e grãos moídos.", price: 9.90, quantity: 0},
@@ -30,10 +31,36 @@ const CoffeeList = [
     {id: 14, img: Irlandes, tags: ["Especial", "Alcoólico"], description: "Bebida a base de café, uísque irlandês, açúcar e chantilly.", price: 9.90, quantity: 0}
 ];
 
-export function CoffeeContext(){
-    return(
-        <div>
+interface Coffee{
+    id: number;
+    img: string;
+    tags: string[];
+    description: string;
+    price: number;
+    quantity: number;
+}
 
-        </div>
+interface CoffeeContextType {
+    coffeeList: Coffee[];
+    setCoffeeList: React.Dispatch<React.SetStateAction<Coffee[]>>;
+}
+
+export const CoffeeContext = createContext<CoffeeContextType | undefined>(undefined);
+
+interface CoffeeContextProviderProps{
+    children: ReactNode;
+}
+
+export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
+    const [coffeeList, setCoffeeList] = useState(CoffeeList);
+
+    return(
+        <CoffeeContext.Provider
+            value={{
+                coffeeList,
+                setCoffeeList
+            }}>
+            {children}
+        </CoffeeContext.Provider>
     );
 }
