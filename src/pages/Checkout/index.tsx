@@ -1,6 +1,18 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react";
-import { CheckoutPriceConfirmationContainer, CheckoutPriceContainer, ConfirmButton, ContainerMain, FormContainer, Input, PaymentOptions, PaymentSelectionSection, SectionForm, TotalInfo } from "./styles";
+import { CheckoutPriceConfirmationContainer,
+         CheckoutPriceContainer,
+         ConfirmButton,
+         ContainerMain,
+         FormContainer, 
+         Input, 
+         PaymentOptions, 
+         PaymentSelectionSection, 
+         SectionForm, 
+         TotalInfo 
+        } from "./styles";
 import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
+import { CoffeeContext, CoffeeEntity } from "../../contexts/CoffeeContext";
+import { useContext } from "react";
 
 
 // const newCheckoutFormValidationSchema = zod.object({
@@ -8,6 +20,7 @@ import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
 // })
 
 export function Checkout(){
+    const { coffeeList } = useContext(CoffeeContext);
 
     function handleCreateNewCheckout(){
 
@@ -79,9 +92,14 @@ export function Checkout(){
                 <CheckoutPriceConfirmationContainer>
                     
                     <div className="container">
+                        {coffeeList.map((coffee:CoffeeEntity) => {
+                            if(coffee.quantity != 0){
+                                return <CoffeeQuantitySelector name={coffee.name} img={coffee.img} id={0} />
+                            }
+                        })}
+                        {/* <CoffeeQuantitySelector />
                         <CoffeeQuantitySelector />
-                        <CoffeeQuantitySelector />
-                        <CoffeeQuantitySelector />
+                        <CoffeeQuantitySelector /> */}
                     </div>
                     
                     <TotalInfo>

@@ -3,7 +3,7 @@ import { CardContainer, Input, PriceContainer } from "./styles";
 import { InputQuantitySelection } from "../../../../components/InputQuatitySelection";
 import { CoffeeEntity } from "../../../../contexts/CoffeeContext";
 
-export function CoffeeCard({name, img, tags, description, price, quantity } : CoffeeEntity){
+export function CoffeeCard({name, img, tags, description, price } : CoffeeEntity){
     return (
         <CardContainer>
             <img src={img} alt="" />
@@ -18,7 +18,7 @@ export function CoffeeCard({name, img, tags, description, price, quantity } : Co
             <PriceContainer>
                 <p>R$ <strong>{price}</strong></p>
                 <Input>
-                    <InputQuantitySelection value={quantity} />
+                    <InputQuantitySelection />
                     <button className="cartButton">
                         <ShoppingCart size={22} weight="fill" />
                     </button>
