@@ -1,17 +1,24 @@
-import { InputCotainer } from "./styles";
+import { InputContainer } from "./styles";
 
-export function InputQuantitySelection(){
+interface InputProps{
+    id: number;
+    addItem: (id:number) => void;
+    removeItem: (id:number) => void;
+}
+
+export function InputQuantitySelection({id, addItem, removeItem}:InputProps){
+
     return (
-        <InputCotainer>
-            <button>
+        <InputContainer>
+            <button onClick={() => removeItem(id)}>
                 -
             </button>
 
-            <input type="number" placeholder="0" min={0} />
+            <input type="number" placeholder="0" min={0} value={id}/>
 
-            <button>
+            <button onClick={() => addItem(id)}>
                 +
             </button>
-        </InputCotainer>
+        </InputContainer>
     );
 }

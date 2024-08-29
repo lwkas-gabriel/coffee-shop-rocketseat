@@ -26,9 +26,9 @@ const CoffeeList = [
     {id: 9, img: Mocaccino, name: "Mocaccino", tags: ["Tradicional", "Com Leite"], description: "Café expresso com calda de chocolate, pouco leite e espuma.", price: 9.90, quantity: 0},
     {id: 10, img: ChocolateQuente, name: "Chocolate Quentes", tags: ["Especial", "Com Leite"], description: "Bebida feita com chocolate dissolvido no leite quente e café.", price: 9.90, quantity: 0},
     {id: 11, img: Cubano, name: "Cubano", tags: ["Especial", "Alcoólico", "Gelado"], description: "Drink gelado de café expresso com rum, creme de leite e hortelã.", price: 9.90, quantity: 0},
-    {id: 12, img: Havaiano, name: "Havaiano", tags: ["Especial"], description: "Bebida adocicada preparada com café e leite de coco.", price: 9.90, quantity: 1},
-    {id: 13, img: Arabe, name: "Árabe", tags: ["Especial"], description: "Bebida preparada com grãos de café árabe e especiarias.", price: 9.90, quantity: 1},
-    {id: 14, img: Irlandes, name: "Irlandês", tags: ["Especial", "Alcoólico"], description: "Bebida a base de café, uísque irlandês, açúcar e chantilly.", price: 9.90, quantity: 1}
+    {id: 12, img: Havaiano, name: "Havaiano", tags: ["Especial"], description: "Bebida adocicada preparada com café e leite de coco.", price: 9.90, quantity: 0},
+    {id: 13, img: Arabe, name: "Árabe", tags: ["Especial"], description: "Bebida preparada com grãos de café árabe e especiarias.", price: 9.90, quantity: 0},
+    {id: 14, img: Irlandes, name: "Irlandês", tags: ["Especial", "Alcoólico"], description: "Bebida a base de café, uísque irlandês, açúcar e chantilly.", price: 9.90, quantity: 0}
 ];
 
 export interface CoffeeEntity{
@@ -43,8 +43,10 @@ export interface CoffeeEntity{
 
 interface CoffeeContextType {
     coffeeList: CoffeeEntity[];
-    setCoffeeList: React.Dispatch<React.SetStateAction<Coffee[]>>;
+    setCoffeeList: React.Dispatch<React.SetStateAction<CoffeeEntity[]>>;
     totalPrice: number;
+    addOneItem: (id: number) => void;
+    removeOneItem: (id: number) => void;
 }
 
 export const CoffeeContext = createContext<CoffeeContextType | undefined>(undefined);
@@ -66,13 +68,36 @@ export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
         )
     ;
 
+    function addOneItem(id: number){
+        const listWithOnePlusItem: CoffeeEntity[] = coffeeList.map(coffee => {
+            if(coffee.id === id){
+                coffee.quantity +=  1
+                return coffee;
+            }
+            return coffee;
+        });
+        setCoffeeList(listWithOnePlusItem);
+    }
+
+    function removeOneItem(id: number){
+        const listWithMinusOneItem: CoffeeEntity[] = coffeeList.map(coffee => {
+            if(coffee.id === id && coffee.quantity > 0){
+                coffee.quantity -=  1
+                return coffee;
+            }
+            return coffee;
+        });
+        setCoffeeList(listWithMinusOneItem);
+    }
 
     return(
         <CoffeeContext.Provider
             value={{
                 coffeeList,
                 setCoffeeList,
-                totalPrice
+                totalPrice,
+                addOneItem,
+                removeOneItem
             }}>
             {children}
         </CoffeeContext.Provider>
