@@ -20,7 +20,7 @@ import { useContext } from "react";
 // })
 
 export function Checkout(){
-    const { coffeeList } = useContext(CoffeeContext);
+    const { coffeeList, totalPrice } = useContext(CoffeeContext);
 
     function handleCreateNewCheckout(){
 
@@ -105,7 +105,7 @@ export function Checkout(){
                     <TotalInfo>
                         <span>
                             <p>Total de Itens</p>
-                            <p>R$ 29,70</p>
+                            <p>R$ {totalPrice.toFixed(2)}</p>
                         </span>
 
                         <span>
@@ -115,7 +115,7 @@ export function Checkout(){
 
                         <span>
                             <p><strong>Total</strong></p>
-                            <p><strong>R$ 33,20</strong></p>
+                            <p><strong>R$ {(totalPrice+3.5).toFixed(2)}</strong></p>
                         </span>
                         
                     </TotalInfo>
