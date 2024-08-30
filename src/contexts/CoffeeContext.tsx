@@ -49,7 +49,8 @@ interface CoffeeContextType {
     removeOneItem: (id: number) => void;
 }
 
-export const CoffeeContext = createContext<CoffeeContextType | undefined>(undefined);
+//export const CoffeeContext = createContext<CoffeeContextType | undefined>(undefined);
+export const CoffeeContext = createContext({} as CoffeeContextType);
 
 interface CoffeeContextProviderProps{
     children: ReactNode;
@@ -63,7 +64,7 @@ export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
         .filter(
             (coffee) => coffee.quantity > 0)
         .reduce(
-            (accumulator, currentValue) => accumulator + currentValue.price,
+            (accumulator, currentValue) => accumulator + (currentValue.price*currentValue.quantity),
             initialTotal,
         )
     ;
@@ -71,19 +72,19 @@ export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
     function addOneItem(id: number){
         const listWithOnePlusItem: CoffeeEntity[] = coffeeList.map(coffee => {
             if(coffee.id === id){
-                coffee.quantity +=  1
-                return coffee;
+                console.log(coffee);
+                return {...coffee, quantity: coffee.quantity+1};
             }
             return coffee;
         });
+        //console.log(listWithOnePlusItem);
         setCoffeeList(listWithOnePlusItem);
     }
 
     function removeOneItem(id: number){
         const listWithMinusOneItem: CoffeeEntity[] = coffeeList.map(coffee => {
             if(coffee.id === id && coffee.quantity > 0){
-                coffee.quantity -=  1
-                return coffee;
+                return {...coffee, quantity: coffee.quantity-1};
             }
             return coffee;
         });
