@@ -16,7 +16,7 @@ import { createContext, ReactNode, useState } from "react";
 
 const CoffeeList = [
     {id: 1, img: ExpressoTradicional, name: "Expresso Tradicional", tags: ["Tradicional"], description: "O tradicional café feito com água quente e grãos moídos.", price: 9.90, quantity: 0},
-    {id: 2, img: ExpressoAmericano, name: "Expresso Americano", tags: ["Tradicional"], description: "Expresso diluído, menos intenso que o tradicional.", price: 9.90, quantity: 1},
+    {id: 2, img: ExpressoAmericano, name: "Expresso Americano", tags: ["Tradicional"], description: "Expresso diluído, menos intenso que o tradicional.", price: 9.90, quantity: 0},
     {id: 3, img: ExpressoCremoso, name: "Expresso Cremoso", tags: ["Tradicional"], description: "Café expresso normal com espuma cremosa.", price: 9.90, quantity: 0},
     {id: 4, img: ExpressoGelado, name: "Expresso Gelado", tags: ["Tradicional", "Gelado"], description: "Bebida preparada com café expresso e cubos de gelo.", price: 9.90, quantity: 0},
     {id: 5, img: CafeComLeite, name: "Café com Leite", tags: ["Tradicional", "Com Leite"], description: "Meio a meio de expresso tradicional com leite vaporizado.", price: 9.90, quantity: 0},
@@ -50,7 +50,6 @@ interface CoffeeContextType {
     cartCounter: number;
 }
 
-//export const CoffeeContext = createContext<CoffeeContextType | undefined>(undefined);
 export const CoffeeContext = createContext({} as CoffeeContextType);
 
 interface CoffeeContextProviderProps{
@@ -77,7 +76,6 @@ export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
     function addOneItem(id: number){
         const listWithOnePlusItem: CoffeeEntity[] = coffeeList.map(coffee => {
             if(coffee.id === id){
-                console.log(coffee);
                 return {...coffee, quantity: coffee.quantity+1};
             }
             return coffee;
