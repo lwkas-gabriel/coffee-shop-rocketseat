@@ -14,7 +14,7 @@ export const HeaderContainer = styled.header`
         align-items: center;
         gap: 12px;
 
-        span{
+        >span{
             display: flex;
             align-items: center;
             gap: 2px;
@@ -38,6 +38,26 @@ export const HeaderContainer = styled.header`
             padding: 8px;
             border-radius: 6px;
         }
-
     }
 `;
+
+export const CartCounter = styled.div`
+    position: absolute;
+    text-align: center;
+    margin-bottom: 25px;
+    margin-left: 20px;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background-color: ${props => props.theme["yellow-dark"]};
+    color: ${props => props.theme.white};
+    margin-top: -10px;
+
+    .visible{
+        visibility: initial;
+    }
+
+    .not-visible{
+        visibility: hidden;
+    }
+`
