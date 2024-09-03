@@ -2,8 +2,12 @@ import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 import image from "../../assets/copo-marca.png"
 import { BannerSection, InfoSection, Info, BulletsContainer, BulletContaier, Bullet, StoreSection, MainContainer, CardsContainer } from "./styles";
 import { CoffeeCard } from "./components/CoffeeCard";
+import { CoffeeEntity, CoffeeContext } from "../../contexts/CoffeeContext";
+import { useContext } from "react";
 
 export function Home(){
+    const { coffeeList } = useContext(CoffeeContext);
+
     return (
         <>
             <MainContainer>
@@ -45,16 +49,20 @@ export function Home(){
                 <StoreSection>
                     <h2>Nossos Cafés</h2>
                     <CardsContainer>
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
-                        <CoffeeCard />
+                        {coffeeList.map((coffee:CoffeeEntity) => {
+                            return (
+                                <CoffeeCard
+                                    key={coffee.id}
+                                    id={coffee.id}
+                                    name={coffee.name}
+                                    img={coffee.img}
+                                    tags={coffee.tags}
+                                    description={coffee.description}
+                                    price={coffee.price}
+                                    quantity={coffee.quantity}
+                                />  
+                            );
+                        })}
                     </CardsContainer>
                 </StoreSection>
             </MainContainer>

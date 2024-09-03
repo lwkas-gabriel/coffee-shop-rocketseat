@@ -1,21 +1,24 @@
 import { ShoppingCart } from "@phosphor-icons/react";
-import americano from "../../../../assets/Type=Americano.png"
 import { CardContainer, Input, PriceContainer } from "./styles";
 import { InputQuantitySelection } from "../../../../components/InputQuatitySelection";
+import { CoffeeEntity } from "../../../../contexts/CoffeeContext";
 
-export function CoffeeCard(){
+export function CoffeeCard({id, name, img, tags, description, price, quantity } : CoffeeEntity){
     return (
         <CardContainer>
-            <img src={americano} alt="" />
+            <img src={img} alt="" />
             <span>
-                <p>tradicional</p>
+                {tags.map((tag:string) =>{ 
+                        return <p>{tag}</p>
+                    }
+                )}
             </span>
-            <h3>Expresso Tradicional</h3>
-            <p>O tradicional café feito com água quente e grãos moídos</p>
+            <h3>{name}</h3>
+            <p>{description}</p>
             <PriceContainer>
-                <p>R$ <strong>9,90</strong></p>
+                <p>R$ <strong>{price}</strong></p>
                 <Input>
-                    <InputQuantitySelection />
+                    <InputQuantitySelection id={id} quantity={quantity} />
                     <button className="cartButton">
                         <ShoppingCart size={22} weight="fill" />
                     </button>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const InputCotainer = styled.div`
+export const InputContainer = styled.div`
 
     input{
         text-align: center;

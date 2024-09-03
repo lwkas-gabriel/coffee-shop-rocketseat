@@ -1,17 +1,20 @@
 import { InputQuantitySelection } from "../../../../components/InputQuatitySelection";
-
-import image from "../../../../assets/Type=Americano.png"
+import { CoffeeEntity } from "../../../../contexts/CoffeeContext";
+// import image from "../../../../assets/Type=Americano.png"
 import { Container, InfoContainer, OperationContainer } from "./styles";
 import { Trash } from "@phosphor-icons/react";
 
-export function CoffeeQuantitySelector(){
+
+
+export function CoffeeQuantitySelector({id, name, img}:CoffeeEntity){
+
     return (
         <Container>
-            <img src={image} alt="" />
+            <img src={img} alt="" />
             <InfoContainer>
-                <p>Café Tradicional</p>
+                <p>{name}</p>
                 <OperationContainer>
-                    <InputQuantitySelection />
+                    <InputQuantitySelection id={id}/>
                     <button className="btn">
                         <span>
                             <Trash size={16}/>
