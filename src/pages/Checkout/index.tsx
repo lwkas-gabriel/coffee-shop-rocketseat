@@ -11,13 +11,20 @@ import { CheckoutPriceConfirmationContainer,
          TotalInfo 
         } from "./styles";
 import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
-import { CoffeeContext, CoffeeEntity } from "../../contexts/CoffeeContext";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 import { useContext } from "react";
 
 
 // const newCheckoutFormValidationSchema = zod.object({
 
 // })
+
+export interface CoffeeItemCheckout{
+    id: number;
+    img: string;
+    name: string;
+    quantity: number;
+}
 
 export function Checkout(){
     const { coffeeList, totalPrice } = useContext(CoffeeContext);
@@ -92,9 +99,9 @@ export function Checkout(){
                 <CheckoutPriceConfirmationContainer>
                     
                     <div className="container">
-                        {coffeeList.map((coffee:CoffeeEntity) => {
+                        {coffeeList.map((coffee:CoffeeItemCheckout) => {
                             if(coffee.quantity != 0){
-                                return <CoffeeQuantitySelector name={coffee.name} img={coffee.img} id={0} />
+                                return <CoffeeQuantitySelector name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity}/>
                             }
                         })}
                         {/* <CoffeeQuantitySelector />
