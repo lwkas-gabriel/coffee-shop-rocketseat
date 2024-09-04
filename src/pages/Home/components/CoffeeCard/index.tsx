@@ -2,6 +2,7 @@ import { ShoppingCart } from "@phosphor-icons/react";
 import { CardContainer, Input, PriceContainer } from "./styles";
 import { InputQuantitySelection } from "../../../../components/InputQuatitySelection";
 import { CoffeeEntity } from "../../../../contexts/CoffeeContext";
+import { NavLink } from "react-router-dom";
 
 export function CoffeeCard({id, name, img, tags, description, price, quantity } : CoffeeEntity){
     return (
@@ -19,9 +20,9 @@ export function CoffeeCard({id, name, img, tags, description, price, quantity } 
                 <p>R$ <strong>{price.toFixed(2).replace('.', ',')}</strong></p>
                 <Input>
                     <InputQuantitySelection id={id} quantity={quantity} />
-                    <button className="cartButton">
+                    <NavLink to="/checkout">
                         <ShoppingCart size={22} weight="fill" />
-                    </button>
+                    </NavLink>
                 </Input>
             </PriceContainer>
         </CardContainer>
