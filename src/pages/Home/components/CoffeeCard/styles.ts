@@ -95,18 +95,18 @@ export const Input = styled.div`
         &:hover{
             color: ${props => props.theme["purple-dark"]};
         }
-
-        &.cartButton{
+    }
+        a{
             display: flex;
             align-items: center;
             color: ${props => props.theme["white"]};
             background-color: ${props => props.theme["purple-dark"]};
+            padding: 8px;
             border-radius: 6px;
             margin-left: 8px;
 
             &:hover{
                 background-color: ${props => props.theme["purple"]};
             }
-        }
     }
 `

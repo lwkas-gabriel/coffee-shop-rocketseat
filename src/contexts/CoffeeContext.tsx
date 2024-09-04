@@ -47,6 +47,7 @@ interface CoffeeContextType {
     totalPrice: number;
     addOneItem: (id: number) => void;
     removeOneItem: (id: number) => void;
+    removeItemFromCart: (id: number) => void;
     cartCounter: number;
 }
 
@@ -94,6 +95,16 @@ export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
         setCoffeeList(listWithMinusOneItem);
     }
 
+    function removeItemFromCart(id: number){
+        const listWithCoffeeItemBackToZero: CoffeeEntity[] = coffeeList.map(coffee => {
+            if(coffee.id === id){
+                return {...coffee, quantity: 0};
+            }
+            return coffee;
+        });
+        setCoffeeList(listWithCoffeeItemBackToZero);
+    }
+
     return(
         <CoffeeContext.Provider
             value={{
@@ -102,7 +113,8 @@ export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
                 totalPrice,
                 addOneItem,
                 removeOneItem,
-                cartCounter
+                cartCounter,
+                removeItemFromCart,
             }}>
             {children}
         </CoffeeContext.Provider>

@@ -11,7 +11,9 @@ export function Header(){
 
     return (
         <HeaderContainer>
-            <img src={logo} alt="Logo da Marca Coffee Delivery" />
+            <NavLink to="/">
+                <img src={logo} alt="Logo da Marca Coffee Delivery" />
+            </NavLink>
             <nav>
                 <span>
                     <MapPin size={22} weight="fill" />
@@ -19,7 +21,7 @@ export function Header(){
                 </span>
                 <NavLink to="/checkout" title="Checkout de Produtos">
                     <ShoppingCart size={22} weight="fill" />
-                    <CartCounter className={cartCounter == 0 ? "not-visible" : "visible"}>
+                    <CartCounter className={cartCounter > 0 ? "visible" : "invisible"}>
                         {cartCounter}
                     </CartCounter>
                 </NavLink>
