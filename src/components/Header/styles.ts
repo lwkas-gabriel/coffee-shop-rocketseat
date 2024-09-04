@@ -53,11 +53,11 @@ export const CartCounter = styled.div`
     color: ${props => props.theme.white};
     margin-top: -10px;
 
-    .visible{
+    &.visible{
         visibility: initial;
     }
 
-    .not-visible{
+    &.invisible{
         visibility: hidden;
     }
 `
