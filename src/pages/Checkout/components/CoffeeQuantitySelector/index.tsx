@@ -1,11 +1,19 @@
+import { useContext } from "react";
 import { CoffeeItemCheckout } from "../..";
 import { InputQuantitySelection } from "../../../../components/InputQuatitySelection";
+import { CoffeeContext } from "../../../../contexts/CoffeeContext";
 import { Container, InfoContainer, OperationContainer } from "./styles";
 import { Trash } from "@phosphor-icons/react";
 
 
 
 export function CoffeeQuantitySelector({id, name, img, quantity, price}:CoffeeItemCheckout){
+
+    const { removeItemFromCart } = useContext(CoffeeContext);
+
+    function handleClick(){
+        removeItemFromCart(id);
+    }
 
     return (
         <Container>
@@ -14,7 +22,7 @@ export function CoffeeQuantitySelector({id, name, img, quantity, price}:CoffeeIt
                 <p>{name}</p>
                 <OperationContainer>
                     <InputQuantitySelection id={id} quantity={quantity}/>
-                    <button className="btn">
+                    <button onClick={handleClick} className="btn">
                         <span>
                             <Trash size={16}/>
                             <p>Remover</p>

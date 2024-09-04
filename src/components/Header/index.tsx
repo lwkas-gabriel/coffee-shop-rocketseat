@@ -11,7 +11,9 @@ export function Header(){
 
     return (
         <HeaderContainer>
-            <img src={logo} alt="Logo da Marca Coffee Delivery" />
+            <NavLink to="/">
+                <img src={logo} alt="Logo da Marca Coffee Delivery" />
+            </NavLink>
             <nav>
                 <span>
                     <MapPin size={22} weight="fill" />
