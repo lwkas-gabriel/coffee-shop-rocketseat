@@ -24,6 +24,7 @@ export interface CoffeeItemCheckout{
     img: string;
     name: string;
     quantity: number;
+    price: number;
 }
 
 export function Checkout(){
@@ -101,7 +102,7 @@ export function Checkout(){
                     <div className="container">
                         {coffeeList.map((coffee:CoffeeItemCheckout) => {
                             if(coffee.quantity != 0){
-                                return <CoffeeQuantitySelector name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity}/>
+                                return <CoffeeQuantitySelector name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
                             }
                         })}
                         {/* <CoffeeQuantitySelector />

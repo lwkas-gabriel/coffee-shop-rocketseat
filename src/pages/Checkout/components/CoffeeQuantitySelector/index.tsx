@@ -5,7 +5,7 @@ import { Trash } from "@phosphor-icons/react";
 
 
 
-export function CoffeeQuantitySelector({id, name, img, quantity}:CoffeeItemCheckout){
+export function CoffeeQuantitySelector({id, name, img, quantity, price}:CoffeeItemCheckout){
 
     return (
         <Container>
@@ -22,7 +22,7 @@ export function CoffeeQuantitySelector({id, name, img, quantity}:CoffeeItemCheck
                     </button>
                 </OperationContainer>
             </InfoContainer>
-            <p className="total-price">R$ 9,90</p>
+            <p className="total-price">{price.toFixed(2).replace('.', ',')}</p>
         </Container>
     );
 }

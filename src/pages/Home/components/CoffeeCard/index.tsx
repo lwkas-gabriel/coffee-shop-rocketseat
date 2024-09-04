@@ -16,7 +16,7 @@ export function CoffeeCard({id, name, img, tags, description, price, quantity } 
             <h3>{name}</h3>
             <p>{description}</p>
             <PriceContainer>
-                <p>R$ <strong>{price}</strong></p>
+                <p>R$ <strong>{price.toFixed(2).replace('.', ',')}</strong></p>
                 <Input>
                     <InputQuantitySelection id={id} quantity={quantity} />
                     <button className="cartButton">

@@ -102,7 +102,7 @@ export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
                 totalPrice,
                 addOneItem,
                 removeOneItem,
-                cartCounter
+                cartCounter,
             }}>
             {children}
         </CoffeeContext.Provider>
