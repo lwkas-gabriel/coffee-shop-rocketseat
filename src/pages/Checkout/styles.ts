@@ -181,39 +181,41 @@ export const PaymentSelectionSection = styled.div`
     }
 `
 
-export const PaymentOptions = styled.div`
-    max-width: fit-content;
+export const PaymentOptions = styled.fieldset`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
     margin-top: 32px;
-
-    @media (max-width:560px){
-        justify-content: center;
-        flex-direction: column;
-    }
+    gap: 12px;
+    border: none;
 
     div{
-        color: ${props => props.theme["light"]};
-    }
-
-    button{
-        max-width: 178px;
-        width: fit-content;
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 0 18px;
-        height: 50px;
-        color: ${props => props.theme["base-text"]};
-        border: none;
-        line-height: 160%;
+        color: black;
+        background-color: ${props => props.theme["base-button"]};
         font-size: 12px;
-        transition: 0.5s;
+        padding: 16px;
         border-radius: 6px;
+        transition: .5s;
 
         &:hover{
-            color: ${props => props.theme["base-subtitle"]};
             background-color: ${props => props.theme["base-hover"]};
+            color: ${props => props.theme["base-subtitle"]};
+        }
+
+        &.checked{
+            border: 1px solid ${props => props.theme.purple};
+            background-color: ${props => props.theme["purple-light"]};
+        }
+
+        .purple-icon{
+            color: ${props => props.theme["purple"]};
+        }
+
+        input[type="radio"]{
+            display: none;
+            appearance: none;
         }
     }
 `

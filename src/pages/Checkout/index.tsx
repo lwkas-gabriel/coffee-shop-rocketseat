@@ -12,7 +12,7 @@ import { CheckoutPriceConfirmationContainer,
         } from "./styles";
 import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
 import { CoffeeContext } from "../../contexts/CoffeeContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 
 // const newCheckoutFormValidationSchema = zod.object({
@@ -29,6 +29,7 @@ export interface CoffeeItemCheckout{
 
 export function Checkout(){
     const { coffeeList, totalPrice } = useContext(CoffeeContext);
+    const [isChecked, setChecked] = useState("");
 
     function handleCreateNewCheckout(){
 
@@ -73,24 +74,23 @@ export function Checkout(){
                         </div>
                     </div>
                     <PaymentOptions>
-                        <button>
-                            <div>
-                                <CreditCard size={16} />
-                            </div>
-                            Cartão de Crédito
-                        </button>
-                        <button>
-                            <div>
-                                <Bank size={16} />
-                            </div>
-                            Cartão de Débito
-                        </button>
-                        <button>
-                            <div>
-                                <Money size={16} />
-                            </div>
-                            Dinheiro
-                        </button>
+                        <div className={isChecked==="credit" ? "checked" : ""} onClick={() => setChecked("credit")}>
+                            <CreditCard className="purple-icon" size={16} />
+                            <input type="radio" id="credit" name="drone" value="credit" />
+                            <label htmlFor="credit">Cartão de Crédito</label>
+                        </div>
+
+                        <div className={isChecked==="debit" ? "checked" : ""}>
+                            <Bank className="purple-icon" size={16} />
+                            <input type="radio" id="debit" name="drone" value="debit" onClick={() => setChecked("debit")} />
+                            <label htmlFor="debit">Cartão de Débito</label>
+                        </div>
+
+                        <div className={isChecked==="cash" ? "checked" : ""} onClick={() => setChecked("cash")}>
+                            <Money className="purple-icon" size={16} />
+                            <input type="radio" id="cash" name="drone" value="cash" />
+                            <label htmlFor="cash">Dinheiro</label>
+                        </div>
                     </PaymentOptions>
                 </PaymentSelectionSection>
             </SectionForm>
