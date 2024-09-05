@@ -10,7 +10,7 @@ export function CoffeeCard({id, name, img, tags, description, price, quantity } 
             <img src={img} alt="" />
             <span>
                 {tags.map((tag:string) =>{ 
-                        return <p>{tag}</p>
+                        return <p key={tag}>{tag}</p>
                     }
                 )}
             </span>

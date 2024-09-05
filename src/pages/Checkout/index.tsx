@@ -102,7 +102,7 @@ export function Checkout(){
                     <div className="container">
                         {coffeeList.map((coffee:CoffeeItemCheckout) => {
                             if(coffee.quantity != 0){
-                                return <CoffeeQuantitySelector name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
+                                return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
                             }
                         })}
                         {/* <CoffeeQuantitySelector />

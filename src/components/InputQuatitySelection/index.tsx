@@ -26,7 +26,7 @@ export function InputQuantitySelection({id, quantity}:InputProps){
                 -
             </button>
 
-            <input type="number" placeholder="0" min={0} value={quantity}/>
+            <input type="number" placeholder="0" min={0} defaultValue={quantity}/>
 
             <button onClick={handleAddCoffee}>
                 +
