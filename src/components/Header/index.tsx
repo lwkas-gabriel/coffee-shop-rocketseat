@@ -22,7 +22,9 @@ export function Header(){
                 <NavLink to="/checkout" title="Checkout de Produtos">
                     <ShoppingCart size={22} weight="fill" />
                     <CartCounter className={cartCounter > 0 ? "visible" : "invisible"}>
-                        {cartCounter}
+                        <p>
+                            {cartCounter}
+                        </p>
                     </CartCounter>
                 </NavLink>
             </nav>
