@@ -10,6 +10,7 @@ export const ContainerMain = styled.main`
 
     @media (max-width:1100px){
         align-items: center;
+        gap: 0;
         flex-direction: column;
     }
 `
@@ -51,6 +52,9 @@ export const Input = styled.input`
 `
 
 export const DeliveryInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     padding: 40px;
     margin: 15px 0 12px 0;
     border-radius: 6px;
@@ -74,31 +78,6 @@ export const DeliveryInfoContainer = styled.div`
             p{
                 font-size: 14px;
                 color: ${props => props.theme["base-text"]};
-            }
-        }
-
-        @media (max-width: 560px) {
-            .first-section{
-                .cep{
-                    max-width: 100%;
-                }
-            }
-
-            .third-section{
-                flex-direction: column;
-
-                :first-child{
-                    max-width: 100%;
-                }
-
-                :nth-child(2){
-                    flex: none;
-                    width: 100%;
-                }
-
-                :last-child{
-                    width: 100%;
-                }
             }
         }
     }
@@ -141,6 +120,31 @@ export const DeliveryInfoContainer = styled.div`
 
             :last-child{
                 width: 60px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .first-section{
+                .cep{
+                    max-width: 100%;
+                }
+            }
+
+            .third-section{
+                flex-direction: column;
+
+                :first-child{
+                    max-width: 100%;
+                }
+
+                :nth-child(2){
+                    flex: none;
+                    width: 100%;
+                }
+
+                :last-child{
+                    width: 100%;
+                }
             }
         }
 `
@@ -211,25 +215,31 @@ export const PaymentOptions = styled.fieldset`
             appearance: none;
         }
     }
+
+    @media (max-width: 569px){
+        flex-direction: column;
+
+        div{
+            width: 160px;
+        }
+    }
 `
 
 export const CheckoutPriceContainer = styled.section`
     display: flex;
     flex-direction: column;
-    max-width: 448px;
+    width: 448px;
     flex-grow: 1;
 
     h4{
         font-family: "Baloo 2";
         font-size: 18px;
         color: ${props => props.theme["base-subtitle"]};
-
     }
 
-    @media (max-width:800px){
-        align-items: center;
+    @media (max-width: 500px){
+        width: 80%;
     }
-
 
 `
 

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { CoffeeContext } from "../../contexts/CoffeeContext";
 import { InputContainer } from "./styles";
 
@@ -11,11 +11,7 @@ export function InputQuantitySelection({id, quantity}:InputProps){
 
     const { addOneItem, removeOneItem } = useContext(CoffeeContext);
 
-    const [value, setValue] = useState(quantity);
-
-    function onChangeValue(){
-        setValue(quantity);
-    }
+    //const [, setValue] = useState(quantity);
 
     function handleRemoveCoffee(){
         removeOneItem(id);
@@ -31,7 +27,7 @@ export function InputQuantitySelection({id, quantity}:InputProps){
                 -
             </button>
 
-            <input type="number" placeholder="0" min={0} value={quantity} onChange={onChangeValue}/>
+            <input type="number" placeholder="0" min={0} value={quantity} readOnly/>
 
             <button onClick={handleAddCoffee}>
                 +

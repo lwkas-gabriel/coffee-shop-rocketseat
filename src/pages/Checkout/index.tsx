@@ -97,7 +97,6 @@ export function Checkout(){
             <CheckoutPriceContainer>
                 <h4>Cafés selecionados</h4>
                 <CheckoutPriceConfirmationContainer>
-                    
                     <div className="container">
                         {coffeeList.map((coffee:CoffeeItemCheckout) => {
                             if(coffee.quantity != 0){

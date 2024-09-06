@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     align-items: start;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: 20px;
     padding-bottom: 24px;
     border-bottom: 1px solid ${props => props.theme["base-button"]};
@@ -35,6 +35,10 @@ export const OperationContainer = styled.div`
     justify-content: space-evenly;
     flex-direction: row;
     gap: 8px;
+
+    @media (max-width: 500px){
+        //flex-direction: column;
+    }
 
     .btn{
         color: ${props => props.theme["base-text"]};
