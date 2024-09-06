@@ -4,7 +4,7 @@ export const ContainerMain = styled.main`
     display: flex;
     width: 100%;
     justify-content: center;
-    padding-top: 140px;
+    padding-top: 100px;
     gap: 32px;
     line-height: 130%;
 
@@ -19,6 +19,7 @@ export const SectionForm = styled.section`
     max-width: 90%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 5rem;
 
     h4{
         font-family: "Baloo 2", sans-serif;
@@ -49,7 +50,7 @@ export const Input = styled.input`
         }
 `
 
-export const FormContainer = styled.div`
+export const DeliveryInfoContainer = styled.div`
     padding: 40px;
     margin: 15px 0 12px 0;
     border-radius: 6px;
@@ -75,16 +76,34 @@ export const FormContainer = styled.div`
                 color: ${props => props.theme["base-text"]};
             }
         }
+
+        @media (max-width: 560px) {
+            .first-section{
+                .cep{
+                    max-width: 100%;
+                }
+            }
+
+            .third-section{
+                flex-direction: column;
+
+                :first-child{
+                    max-width: 100%;
+                }
+
+                :nth-child(2){
+                    flex: none;
+                    width: 100%;
+                }
+
+                :last-child{
+                    width: 100%;
+                }
+            }
+        }
     }
 
-    form{
-        display: flex;
-        flex-direction: column;
-        gap:1rem;
-        margin-top: 32px;
-        flex-wrap: wrap;
-
-        .first-section{
+    .first-section{
             display: flex;
             width: 100%;
             flex-wrap: wrap;
@@ -124,32 +143,6 @@ export const FormContainer = styled.div`
                 width: 60px;
             }
         }
-
-        @media (max-width: 560px) {
-            .first-section{
-                .cep{
-                    max-width: 100%;
-                }
-            }
-
-            .third-section{
-                flex-direction: column;
-
-                :first-child{
-                    max-width: 100%;
-                }
-
-                :nth-child(2){
-                    flex: none;
-                    width: 100%;
-                }
-
-                :last-child{
-                    width: 100%;
-                }
-            }
-        }
-    }
 `
 
 export const PaymentSelectionSection = styled.div`
