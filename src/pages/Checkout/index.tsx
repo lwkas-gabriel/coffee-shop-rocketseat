@@ -1,18 +1,18 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react";
 import { CheckoutPriceConfirmationContainer,
          CheckoutPriceContainer,
          ConfirmButton,
          ContainerMain,
-         DeliveryInfoContainer,
-         Input, 
-         PaymentOptions, 
-         PaymentSelectionSection, 
          SectionForm, 
          TotalInfo 
         } from "./styles";
+import * as zod from "zod";
 import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
 import { CoffeeContext } from "../../contexts/CoffeeContext";
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { NewCheckoutForm } from "./components/NewCheckoutForm";
+import { useNavigate } from 'react-router-dom';
 
 
 // const newCheckoutFormValidationSchema = zod.object({
@@ -27,70 +27,59 @@ export interface CoffeeItemCheckout{
     price: number;
 }
 
+const newCheckoutFormValidationSchema = zod.object({
+    cep: zod.string().regex(/^[0-9]{5}-?[0-9]{3}$/, { message: 'CEP inválido' }),
+    street: zod.string().min(1, { message: 'O campo Rua é obrigatório!' }),
+    houseNumber: zod.union([
+      zod.string().min(1, { message: 'Número é obrigatório e não pode estar vazio' }),
+      zod.number().gt(0, { message: 'Número deve ser maior que 0' })
+    ]),
+    complement: zod.string().optional(),
+    neighborhood: zod.string().min(1, { message: 'Bairro é obrigatório' }),
+    city: zod.string().min(1, { message: 'Cidade é obrigatória' }),
+    state: zod.string().length(2, { message: 'Estado deve ter exatamente 2 caracteres' }),
+    paymentMethod: zod.enum(['credit', 'debit', 'pix'], { 
+      errorMap: () => ({ message: 'Selecione uma forma de pagamento!' }) 
+    }),
+  });
+
+type NewCheckoutFormData = zod.infer<typeof newCheckoutFormValidationSchema>;
+
 export function Checkout(){
     const { coffeeList, totalPrice } = useContext(CoffeeContext);
-    const [isChecked, setChecked] = useState("");
+    const navigate = useNavigate();
 
-    function handleCreateNewCheckout(){
+    const newCheckoutForm = useForm<NewCheckoutFormData>({
+        resolver: zodResolver(newCheckoutFormValidationSchema),
+        defaultValues: {
+          cep: '',
+          street: '',
+          houseNumber: '',
+          complement: '',
+          neighborhood: '',
+          city: '',
+          state: '',
+          paymentMethod: undefined,
+        },
+      });
 
+    const { handleSubmit, reset } = newCheckoutForm;
+
+
+    function handleCreateNewCheckout(data: NewCheckoutFormData){
+        console.log(data); // Processa os dados do formulário
+        reset();
+        navigate('/delivery-confirmation'); // Redireciona para a rota '/x'
     }
 
     return (
         <ContainerMain>
             <SectionForm>
                 <h4>Complete seu pedido</h4>
-                <form action="" onSubmit={handleCreateNewCheckout}>
-                    <DeliveryInfoContainer>
-                        <div>
-                            <MapPinLine size={16} />
-                            <div className="title">
-                                <h5>Endereço de Entrega</h5>
-                                <p>Informe o endereço onde deseja receber seu pedido</p>
-                            </div>
-                        </div>
-                            <div className="first-section">
-                                <Input className="cep" type="text" placeholder="CEP"/>
-                                <Input type="text" placeholder="Rua"/>
-                            </div>
-                            <div className="second-section">
-                                <Input type="text" placeholder="Número"/>
-                                <Input className="complement" type="text" placeholder="Complemento"/>
-                            </div>
-                            <div  className="third-section">
-                                <Input type="text" placeholder="Bairro"/>
-                                <Input type="text" placeholder="Cidade"/>
-                                <Input type="text" placeholder="UF"/>
-                            </div>
-                    </DeliveryInfoContainer>
-
-                    <PaymentSelectionSection>
-                        <div>
-                            <CurrencyDollar size={16}/>
-                            <div>
-                                <h5>Pagamento</h5>
-                                <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
-                            </div>
-                        </div>
-                        <PaymentOptions>
-                            <div className={isChecked==="credit" ? "checked" : ""} onClick={() => setChecked("credit")}>
-                                <CreditCard className="purple-icon" size={16} />
-                                <input type="radio" id="credit" name="drone" value="credit" />
-                                <label htmlFor="credit">Cartão de Crédito</label>
-                            </div>
-
-                            <div className={isChecked==="debit" ? "checked" : ""}>
-                                <Bank className="purple-icon" size={16} />
-                                <input type="radio" id="debit" name="drone" value="debit" onClick={() => setChecked("debit")} />
-                                <label htmlFor="debit">Cartão de Débito</label>
-                            </div>
-
-                            <div className={isChecked==="cash" ? "checked" : ""} onClick={() => setChecked("cash")}>
-                                <Money className="purple-icon" size={16} />
-                                <input type="radio" id="cash" name="drone" value="cash" />
-                                <label htmlFor="cash">Dinheiro</label>
-                            </div>
-                        </PaymentOptions>
-                    </PaymentSelectionSection>
+                <form action="" onSubmit={handleSubmit(handleCreateNewCheckout)}>
+                    <FormProvider {...newCheckoutForm}>
+                        <NewCheckoutForm />
+                    </FormProvider>
                 </form>
             </SectionForm>
 
@@ -103,9 +92,6 @@ export function Checkout(){
                                 return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
                             }
                         })}
-                        {/* <CoffeeQuantitySelector />
-                        <CoffeeQuantitySelector />
-                        <CoffeeQuantitySelector /> */}
                     </div>
                     
                     <TotalInfo>
