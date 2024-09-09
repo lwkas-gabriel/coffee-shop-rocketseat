@@ -4,12 +4,13 @@ export const ContainerMain = styled.main`
     display: flex;
     width: 100%;
     justify-content: center;
-    padding-top: 140px;
+    padding-top: 100px;
     gap: 32px;
     line-height: 130%;
 
     @media (max-width:1100px){
         align-items: center;
+        gap: 0;
         flex-direction: column;
     }
 `
@@ -19,6 +20,7 @@ export const SectionForm = styled.section`
     max-width: 90%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 5rem;
 
     h4{
         font-family: "Baloo 2", sans-serif;
@@ -49,7 +51,10 @@ export const Input = styled.input`
         }
 `
 
-export const FormContainer = styled.div`
+export const DeliveryInfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     padding: 40px;
     margin: 15px 0 12px 0;
     border-radius: 6px;
@@ -77,14 +82,7 @@ export const FormContainer = styled.div`
         }
     }
 
-    form{
-        display: flex;
-        flex-direction: column;
-        gap:1rem;
-        margin-top: 32px;
-        flex-wrap: wrap;
-
-        .first-section{
+    .first-section{
             display: flex;
             width: 100%;
             flex-wrap: wrap;
@@ -149,7 +147,6 @@ export const FormContainer = styled.div`
                 }
             }
         }
-    }
 `
 
 export const PaymentSelectionSection = styled.div`
@@ -181,39 +178,49 @@ export const PaymentSelectionSection = styled.div`
     }
 `
 
-export const PaymentOptions = styled.div`
-    max-width: fit-content;
+export const PaymentOptions = styled.fieldset`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    align-items: center;
     margin-top: 32px;
-
-    @media (max-width:560px){
-        justify-content: center;
-        flex-direction: column;
-    }
+    gap: 12px;
+    border: none;
 
     div{
-        color: ${props => props.theme["light"]};
-    }
-
-    button{
-        max-width: 178px;
-        width: fit-content;
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 0 18px;
-        height: 50px;
-        color: ${props => props.theme["base-text"]};
-        border: none;
-        line-height: 160%;
+        color: black;
+        background-color: ${props => props.theme["base-button"]};
         font-size: 12px;
-        transition: 0.5s;
+        padding: 16px;
         border-radius: 6px;
+        transition: .5s;
 
         &:hover{
-            color: ${props => props.theme["base-subtitle"]};
             background-color: ${props => props.theme["base-hover"]};
+            color: ${props => props.theme["base-subtitle"]};
+        }
+
+        &.checked{
+            border: 1px solid ${props => props.theme.purple};
+            background-color: ${props => props.theme["purple-light"]};
+        }
+
+        .purple-icon{
+            color: ${props => props.theme["purple"]};
+        }
+
+        input[type="radio"]{
+            display: none;
+            appearance: none;
+        }
+    }
+
+    @media (max-width: 569px){
+        flex-direction: column;
+
+        div{
+            width: 160px;
         }
     }
 `
@@ -221,20 +228,18 @@ export const PaymentOptions = styled.div`
 export const CheckoutPriceContainer = styled.section`
     display: flex;
     flex-direction: column;
-    max-width: 448px;
+    width: 448px;
     flex-grow: 1;
 
     h4{
         font-family: "Baloo 2";
         font-size: 18px;
         color: ${props => props.theme["base-subtitle"]};
-
     }
 
-    @media (max-width:800px){
-        align-items: center;
+    @media (max-width: 500px){
+        width: 80%;
     }
-
 
 `
 

@@ -11,7 +11,7 @@ export function CoffeeQuantitySelector({id, name, img, quantity, price}:CoffeeIt
 
     const { removeItemFromCart } = useContext(CoffeeContext);
 
-    function handleClick(){
+    function handleRemoveItem(){
         removeItemFromCart(id);
     }
 
@@ -22,7 +22,7 @@ export function CoffeeQuantitySelector({id, name, img, quantity, price}:CoffeeIt
                 <p>{name}</p>
                 <OperationContainer>
                     <InputQuantitySelection id={id} quantity={quantity}/>
-                    <button onClick={handleClick} className="btn">
+                    <button onClick={handleRemoveItem} className="btn">
                         <span>
                             <Trash size={16}/>
                             <p>Remover</p>
@@ -30,7 +30,7 @@ export function CoffeeQuantitySelector({id, name, img, quantity, price}:CoffeeIt
                     </button>
                 </OperationContainer>
             </InfoContainer>
-            <p className="total-price">{price.toFixed(2).replace('.', ',')}</p>
+            <p className="total-price">R$ {price.toFixed(2).replace('.', ',')}</p>
         </Container>
     );
 }

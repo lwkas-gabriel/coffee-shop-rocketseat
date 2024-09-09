@@ -42,8 +42,11 @@ export const HeaderContainer = styled.header`
 `;
 
 export const CartCounter = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
-    text-align: center;
+    font-size: 12px;
     margin-bottom: 25px;
     margin-left: 20px;
     width: 20px;

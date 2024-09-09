@@ -11,12 +11,13 @@ export function InputQuantitySelection({id, quantity}:InputProps){
 
     const { addOneItem, removeOneItem } = useContext(CoffeeContext);
 
+    //const [, setValue] = useState(quantity);
+
     function handleRemoveCoffee(){
         removeOneItem(id);
     }
     
     function handleAddCoffee(){
-        console.log(id)
         addOneItem(id);
     }
 
@@ -26,7 +27,7 @@ export function InputQuantitySelection({id, quantity}:InputProps){
                 -
             </button>
 
-            <input type="number" placeholder="0" min={0} value={quantity}/>
+            <input type="number" placeholder="0" min={0} value={quantity} readOnly/>
 
             <button onClick={handleAddCoffee}>
                 +
