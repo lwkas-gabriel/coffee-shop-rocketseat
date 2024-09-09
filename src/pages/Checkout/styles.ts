@@ -88,6 +88,11 @@ export const ConfirmButton = styled.button`
     margin-top: 24px;
     transition: 0.5s;
 
+    &.not-available{
+        cursor: not-allowed;
+        opacity: 0.75;
+    }
+
     &:hover{
         background-color: ${props => props.theme["yellow-dark"]};
     }

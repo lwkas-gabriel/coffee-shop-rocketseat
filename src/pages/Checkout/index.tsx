@@ -14,11 +14,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { NewCheckoutForm } from "./components/NewCheckoutForm";
 import { useNavigate } from 'react-router-dom';
 
-
-// const newCheckoutFormValidationSchema = zod.object({
-
-// })
-
 export interface CoffeeItemCheckout{
     id: number;
     img: string;
@@ -28,16 +23,16 @@ export interface CoffeeItemCheckout{
 }
 
 const newCheckoutFormValidationSchema = zod.object({
-    cep: zod.string().regex(/^[0-9]{5}-?[0-9]{3}$/, { message: 'CEP inválido' }),
-    street: zod.string().min(1, { message: 'O campo Rua é obrigatório!' }),
+    cep: zod.string().regex(/^[0-9]{5}-?[0-9]{3}$/, 'CEP inválido'),
+    street: zod.string().min(1,'O campo Rua é obrigatório!'),
     houseNumber: zod.union([
-      zod.string().min(1, { message: 'Número é obrigatório e não pode estar vazio' }),
-      zod.number().gt(0, { message: 'Número deve ser maior que 0' })
+      zod.string().min(1,'Número é obrigatório e não pode estar vazio'),
+      zod.number().gt(0, 'Número deve ser maior que 0' )
     ]),
     complement: zod.string().optional(),
-    neighborhood: zod.string().min(1, { message: 'Bairro é obrigatório' }),
-    city: zod.string().min(1, { message: 'Cidade é obrigatória' }),
-    state: zod.string().length(2, { message: 'Estado deve ter exatamente 2 caracteres' }),
+    neighborhood: zod.string().min(1, 'Bairro é obrigatório'),
+    city: zod.string().min(1, 'Cidade é obrigatória' ),
+    state: zod.string().length(2, 'Estado deve ter exatamente 2 caracteres'),
     paymentMethod: zod.enum(['credit', 'debit', 'pix'], { 
       errorMap: () => ({ message: 'Selecione uma forma de pagamento!' }) 
     }),
@@ -46,7 +41,7 @@ const newCheckoutFormValidationSchema = zod.object({
 type NewCheckoutFormData = zod.infer<typeof newCheckoutFormValidationSchema>;
 
 export function Checkout(){
-    const { coffeeList, totalPrice } = useContext(CoffeeContext);
+    const { coffeeList, totalPrice, emptyCart } = useContext(CoffeeContext);
     const navigate = useNavigate();
 
     const newCheckoutForm = useForm<NewCheckoutFormData>({
@@ -63,12 +58,16 @@ export function Checkout(){
         },
       });
 
+    //para debugar a submissão do form
+    //console.log(newCheckoutForm.formState.errors);
+
     const { handleSubmit, reset } = newCheckoutForm;
+    //const fields = watch(["cep", "street", "houseNumber", "neighborhood", "city", "state", "paymentMethod"]);
 
-
-    function handleCreateNewCheckout(data: NewCheckoutFormData){
+        function handleCreateNewCheckout(data: NewCheckoutFormData){
         console.log(data); // Processa os dados do formulário
-        reset();
+        emptyCart(); // esvazia o carrinho
+        reset(); // reseta o formulário
         navigate('/delivery-confirmation'); // Redireciona para a rota '/x'
     }
 
@@ -76,45 +75,45 @@ export function Checkout(){
         <ContainerMain>
             <SectionForm>
                 <h4>Complete seu pedido</h4>
-                <form action="" onSubmit={handleSubmit(handleCreateNewCheckout)}>
+                <form onSubmit={handleSubmit(handleCreateNewCheckout)}>
                     <FormProvider {...newCheckoutForm}>
                         <NewCheckoutForm />
                     </FormProvider>
+
+                    <CheckoutPriceContainer>
+                        <h4>Cafés selecionados</h4>
+                        <CheckoutPriceConfirmationContainer>
+                            <div className="container">
+                                {coffeeList.map((coffee:CoffeeItemCheckout) => {
+                                    if(coffee.quantity != 0){
+                                        return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
+                                    }
+                                })}
+                            </div>
+                            
+                            <TotalInfo>
+                                <span>
+                                    <p>Total de Itens</p>
+                                    <p>R$ {totalPrice.toFixed(2)}</p>
+                                </span>
+
+                                <span>
+                                    <p>Entrega</p>
+                                    <p>R$ 3,50</p>
+                                </span>
+
+                                <span>
+                                    <p><strong>Total</strong></p>
+                                    <p><strong>R$ {(totalPrice+3.5).toFixed(2)}</strong></p>
+                                </span>
+                                
+                            </TotalInfo>
+                            <ConfirmButton className={totalPrice == 0 ? "not-available" : ""} disabled={totalPrice==0} type="submit">CONFIRMAR PEDIDO</ConfirmButton>
+                        </CheckoutPriceConfirmationContainer>
+                    </CheckoutPriceContainer>
+                    {/* <ConfirmButton type="submit">CONFIRMAR PEDIDO</ConfirmButton> */}
                 </form>
             </SectionForm>
-
-            <CheckoutPriceContainer>
-                <h4>Cafés selecionados</h4>
-                <CheckoutPriceConfirmationContainer>
-                    <div className="container">
-                        {coffeeList.map((coffee:CoffeeItemCheckout) => {
-                            if(coffee.quantity != 0){
-                                return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
-                            }
-                        })}
-                    </div>
-                    
-                    <TotalInfo>
-                        <span>
-                            <p>Total de Itens</p>
-                            <p>R$ {totalPrice.toFixed(2)}</p>
-                        </span>
-
-                        <span>
-                            <p>Entrega</p>
-                            <p>R$ 3,50</p>
-                        </span>
-
-                        <span>
-                            <p><strong>Total</strong></p>
-                            <p><strong>R$ {(totalPrice+3.5).toFixed(2)}</strong></p>
-                        </span>
-                        
-                    </TotalInfo>
-                    <ConfirmButton>CONFIRMAR PEDIDO</ConfirmButton>
-                </CheckoutPriceConfirmationContainer>
-            </CheckoutPriceContainer>
-
         </ContainerMain>
     );
 }

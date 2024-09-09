@@ -1,11 +1,15 @@
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react";
 import { DeliveryInfoContainer, Input, PaymentOptions, PaymentSelectionSection } from "./styles";
-import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 export function NewCheckoutForm(){
-    const [isChecked, setChecked] = useState("");
-    const { register } = useFormContext();
+    const { register, watch, setValue } = useFormContext();
+    const paymentMethod = watch('paymentMethod');
+
+    function handleSelectPaymentMethod(method: string) {
+        setValue('paymentMethod', method); // Atualiza o valor no formulário
+    }
+
     return(
         <>
             <DeliveryInfoContainer>
@@ -41,21 +45,21 @@ export function NewCheckoutForm(){
                     </div>
                 </div>
                 <PaymentOptions>
-                    <div className={isChecked==="credit" ? "checked" : ""} onClick={() => setChecked("credit")}>
+                    <div className={paymentMethod==="credit" ? "checked" : ""}>
                         <CreditCard className="purple-icon" size={16} />
-                        <input type="radio" id="credit" {...register('paymentMethod')} name="drone" value="credit" />
+                        <input type="radio" id="credit" {...register('paymentMethod')} onClick={() => handleSelectPaymentMethod("credit")} name="drone" value="credit" />
                         <label htmlFor="credit">Cartão de Crédito</label>
                     </div>
 
-                    <div className={isChecked==="debit" ? "checked" : ""}>
+                    <div className={paymentMethod==="debit" ? "checked" : ""}>
                         <Bank className="purple-icon" size={16} />
-                        <input type="radio" id="debit" {...register('paymentMethod')} name="drone" value="debit" onClick={() => setChecked("debit")} />
+                        <input type="radio" id="debit" {...register('paymentMethod')} onClick={() => handleSelectPaymentMethod("credit")} name="drone" value="debit" />
                         <label htmlFor="debit">Cartão de Débito</label>
                     </div>
 
-                    <div className={isChecked==="cash" ? "checked" : ""} onClick={() => setChecked("cash")}>
+                    <div className={paymentMethod==="cash" ? "checked" : ""}>
                         <Money className="purple-icon" size={16} />
-                        <input type="radio" id="cash" {...register('paymentMethod')} name="drone" value="cash" />
+                        <input type="radio" id="cash" {...register('paymentMethod')} onClick={() => handleSelectPaymentMethod("credit")} name="drone" value="cash" />
                         <label htmlFor="cash">Dinheiro</label>
                     </div>
                 </PaymentOptions>   
