@@ -5,11 +5,11 @@ import { Bullet, Container, DeliveryInfoContainer, InfoHeader } from "./styles";
 export function DeliveryConfirmation(){
     return (
         <Container>
-            <InfoHeader>
-                <h2>Uhu! Pedido confirmado</h2>
-                <p>Agora é só aguardar que logo o café chegará até você</p>
-            </InfoHeader>
             <section>
+                <InfoHeader>
+                    <h2>Uhu! Pedido confirmado</h2>
+                    <p>Agora é só aguardar que logo o café chegará até você</p>
+                </InfoHeader>
                 <DeliveryInfoContainer>
                     <section>
                         <Bullet className="purple">
@@ -39,8 +39,8 @@ export function DeliveryConfirmation(){
                         </div>
                     </section>
                 </DeliveryInfoContainer>
-                <img src={image} alt="" />
             </section>
+            <img src={image} alt="" />
         </Container>
     );
 }

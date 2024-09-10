@@ -5,25 +5,30 @@ export const Container = styled.main`
     display: flex;
     width: 100%;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
 
     >section{
         display: flex;
         justify-content: center;
-        width: 80%;
+        flex-direction: column;
         justify-content: space-evenly;
-        /* gap: 32px; */
+        align-items: center;
+    }
 
-        @media (max-width: 1024px){
-            flex-direction: column-reverse;
-            align-items: center;
+    @media (max-width: 1024px){
+        flex-direction: column-reverse;
+        gap: 1rem;
+
+        img{
+            width: 60%;
         }
     }
 `
 
 export const DeliveryInfoContainer = styled.section`
     display: flex;
-    width: 30%;
+    width: 500px;
     flex-direction: column;
     justify-content: space-evenly;
     font-size: 1rem;
@@ -33,23 +38,26 @@ export const DeliveryInfoContainer = styled.section`
     border-top-right-radius: 36px;
     border-bottom-left-radius: 36px;
     border: 1px solid transparent;
-    padding: auto auto;
+    padding-top: 30px;
+    padding-bottom: 30px;
     gap: 32px;
 
-    @media (max-width: 1024px){
-        max-width: 450px;
+    >section{
+        display: flex;
+        width: fit-content;
+        flex-direction: row;
+        align-items: center;
+        height: fit-content;
+        flex: 1;
+        gap: 5px;
+        padding: 0px 40px 0 40px;
     }
 
-        >section{
-            display: flex;
-            width: fit-content;
-            flex-direction: row;
-            align-items: center;
-            height: fit-content;
-            gap: 5px;
-            padding: 0px 40px 0 40px;
-        }
-
+    @media (max-width: 1024px){
+        width: 80%;
+        margin-top: 20px;
+        padding: 30px 0;
+    }
 `
 
 export const InfoHeader = styled.div`
@@ -64,6 +72,10 @@ export const InfoHeader = styled.div`
         margin-bottom: 40px;
         color: ${props => props.theme["base-subtitle"]};
         font-size: 20px;
+    }
+
+    @media (max-width: 1024px){
+        width: 80%;
     }
 `
 
