@@ -7,17 +7,22 @@ export const ContainerMain = styled.main`
     padding-top: 100px;
     gap: 32px;
     line-height: 130%;
+    
+    form{
+        width: fit-content;
+        display: flex;
+        gap: 32px;
 
-    @media (max-width:1100px){
-        align-items: center;
-        gap: 0;
-        flex-direction: column;
+        @media (max-width:1140px){
+            align-items: center;
+            flex-direction: column;
+        }
     }
 `
 
 export const SectionForm = styled.section`
     width: 640px;
-    max-width: 90%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     margin-bottom: 5rem;
@@ -27,7 +32,6 @@ export const SectionForm = styled.section`
         font-weight: bold;
         font-size: 18px;
     }
-
 `
 
 export const CheckoutPriceContainer = styled.section`

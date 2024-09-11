@@ -73,47 +73,46 @@ export function Checkout(){
 
     return (
         <ContainerMain>
-            <SectionForm>
-                <h4>Complete seu pedido</h4>
-                <form onSubmit={handleSubmit(handleCreateNewCheckout)}>
-                    <FormProvider {...newCheckoutForm}>
-                        <NewCheckoutForm />
-                    </FormProvider>
+            <form onSubmit={handleSubmit(handleCreateNewCheckout)}>
+                <SectionForm>
+                    <h4>Complete seu pedido</h4>
+                        <FormProvider {...newCheckoutForm}>
+                            <NewCheckoutForm />
+                        </FormProvider>
+                        {/* <ConfirmButton type="submit">CONFIRMAR PEDIDO</ConfirmButton> */}
+                </SectionForm>
+                <CheckoutPriceContainer>
+                <h4>Cafés selecionados</h4>
+                    <CheckoutPriceConfirmationContainer>
+                        <div className="container">
+                            {coffeeList.map((coffee:CoffeeItemCheckout) => {
+                                if(coffee.quantity != 0){
+                                    return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
+                                }
+                            })}
+                        </div>
+                        
+                        <TotalInfo>
+                            <span>
+                                <p>Total de Itens</p>
+                                <p>R$ {totalPrice.toFixed(2)}</p>
+                            </span>
 
-                    <CheckoutPriceContainer>
-                        <h4>Cafés selecionados</h4>
-                        <CheckoutPriceConfirmationContainer>
-                            <div className="container">
-                                {coffeeList.map((coffee:CoffeeItemCheckout) => {
-                                    if(coffee.quantity != 0){
-                                        return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
-                                    }
-                                })}
-                            </div>
+                            <span>
+                                <p>Entrega</p>
+                                <p>R$ 3,50</p>
+                            </span>
+
+                            <span>
+                                <p><strong>Total</strong></p>
+                                <p><strong>R$ {(totalPrice+3.5).toFixed(2)}</strong></p>
+                            </span>
                             
-                            <TotalInfo>
-                                <span>
-                                    <p>Total de Itens</p>
-                                    <p>R$ {totalPrice.toFixed(2)}</p>
-                                </span>
-
-                                <span>
-                                    <p>Entrega</p>
-                                    <p>R$ 3,50</p>
-                                </span>
-
-                                <span>
-                                    <p><strong>Total</strong></p>
-                                    <p><strong>R$ {(totalPrice+3.5).toFixed(2)}</strong></p>
-                                </span>
-                                
-                            </TotalInfo>
-                            <ConfirmButton className={totalPrice == 0 ? "not-available" : ""} disabled={totalPrice==0} type="submit">CONFIRMAR PEDIDO</ConfirmButton>
-                        </CheckoutPriceConfirmationContainer>
-                    </CheckoutPriceContainer>
-                    {/* <ConfirmButton type="submit">CONFIRMAR PEDIDO</ConfirmButton> */}
-                </form>
-            </SectionForm>
+                        </TotalInfo>
+                        <ConfirmButton className={totalPrice == 0 ? "not-available" : ""} disabled={totalPrice==0} type="submit">CONFIRMAR PEDIDO</ConfirmButton>
+                    </CheckoutPriceConfirmationContainer>
+                </CheckoutPriceContainer>
+            </form>
         </ContainerMain>
     );
 }
