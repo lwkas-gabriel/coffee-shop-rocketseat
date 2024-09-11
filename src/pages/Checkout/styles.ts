@@ -37,23 +37,18 @@ export const SectionForm = styled.section`
 export const CheckoutPriceContainer = styled.section`
     display: flex;
     flex-direction: column;
-    width: 448px;
+    width: 90%;
 
     h4{
         font-family: "Baloo 2";
         font-size: 18px;
         color: ${props => props.theme["base-subtitle"]};
     }
-
-    @media (max-width: 500px){
-        width: 80%;
-    }
-
 `
 
 export const CheckoutPriceConfirmationContainer = styled.div`
     background-color: ${props => props.theme["base-card"]};
-    padding: 40px;
+    padding: 10% 5% 10% 5%;
     margin-top: 15px;
     border-top-left-radius: 6px;
     border-bottom-right-radius: 6px;

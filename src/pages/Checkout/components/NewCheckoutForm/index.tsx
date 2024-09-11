@@ -53,14 +53,14 @@ export function NewCheckoutForm(){
 
                     <div className={paymentMethod==="debit" ? "checked" : ""}>
                         <Bank className="purple-icon" size={16} />
-                        <input type="radio" id="debit" {...register('paymentMethod')} onClick={() => handleSelectPaymentMethod("credit")} name="drone" value="debit" />
+                        <input type="radio" id="debit" {...register('paymentMethod')} onClick={() => handleSelectPaymentMethod("debit")} name="drone" value="debit" />
                         <label htmlFor="debit">Cartão de Débito</label>
                     </div>
 
-                    <div className={paymentMethod==="cash" ? "checked" : ""}>
+                    <div className={paymentMethod==="pix" ? "checked" : ""}>
                         <Money className="purple-icon" size={16} />
-                        <input type="radio" id="cash" {...register('paymentMethod')} onClick={() => handleSelectPaymentMethod("credit")} name="drone" value="cash" />
-                        <label htmlFor="cash">Dinheiro</label>
+                        <input type="radio" id="pix" {...register('paymentMethod')} onClick={() => handleSelectPaymentMethod("pix")} name="drone" value="pix" />
+                        <label htmlFor="pix">Dinheiro</label>
                     </div>
                 </PaymentOptions>   
             </PaymentSelectionSection>

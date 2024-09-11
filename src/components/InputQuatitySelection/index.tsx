@@ -23,13 +23,13 @@ export function InputQuantitySelection({id, quantity}:InputProps){
 
     return (
         <InputContainer>
-            <button onClick={handleRemoveCoffee}>
+            <button type="button" onClick={handleRemoveCoffee}>
                 -
             </button>
 
             <input type="number" placeholder="0" min={0} value={quantity} readOnly/>
 
-            <button onClick={handleAddCoffee}>
+            <button type="button" onClick={handleAddCoffee}>
                 +
             </button>
         </InputContainer>

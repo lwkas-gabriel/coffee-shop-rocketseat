@@ -65,10 +65,10 @@ export function Checkout(){
     //const fields = watch(["cep", "street", "houseNumber", "neighborhood", "city", "state", "paymentMethod"]);
 
         function handleCreateNewCheckout(data: NewCheckoutFormData){
-        console.log(data); // Processa os dados do formulário
-        emptyCart(); // esvazia o carrinho
-        reset(); // reseta o formulário
-        navigate('/delivery-confirmation'); // Redireciona para a rota '/x'
+            console.log(data); // Processa os dados do formulário
+            emptyCart(); // esvazia o carrinho
+            reset(); // reseta o formulário
+            navigate('/delivery-confirmation'); // Redireciona para a rota '/x'
     }
 
     return (
@@ -82,7 +82,7 @@ export function Checkout(){
                         {/* <ConfirmButton type="submit">CONFIRMAR PEDIDO</ConfirmButton> */}
                 </SectionForm>
                 <CheckoutPriceContainer>
-                <h4>Cafés selecionados</h4>
+                    <h4>Cafés selecionados</h4>
                     <CheckoutPriceConfirmationContainer>
                         <div className="container">
                             {coffeeList.map((coffee:CoffeeItemCheckout) => {
