@@ -65,10 +65,10 @@ export function Checkout(){
     //const fields = watch(["cep", "street", "houseNumber", "neighborhood", "city", "state", "paymentMethod"]);
 
         function handleCreateNewCheckout(data: NewCheckoutFormData){
-            console.log(data); // Processa os dados do formulário
+            //console.log(data); // Processa os dados do formulário
             emptyCart(); // esvazia o carrinho
             reset(); // reseta o formulário
-            navigate('/delivery-confirmation'); // Redireciona para a rota '/x'
+            navigate('/delivery-confirmation', {state: {formData: data}}); // Redireciona para a rota '/x'
     }
 
     return (
