@@ -4,6 +4,7 @@ export const Container = styled.div`
     max-width: 100%;
     display: flex;
     justify-content: space-around;
+    gap: 20px;
     padding-bottom: 24px;
     border-bottom: 1px solid ${props => props.theme["base-button"]};
     
@@ -16,6 +17,10 @@ export const Container = styled.div`
         color: ${props => props.theme["base-text"]};
         font-weight: bold;
         font-size: 16px;
+    }
+
+    @media(max-width: 375px){
+        gap: 5px;
     }
 `
 
