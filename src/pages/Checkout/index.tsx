@@ -1,23 +1,18 @@
-import { Bank, CreditCard, CurrencyDollar, MapPinLine, Money } from "@phosphor-icons/react";
 import { CheckoutPriceConfirmationContainer,
          CheckoutPriceContainer,
          ConfirmButton,
          ContainerMain,
-         DeliveryInfoContainer,
-         Input, 
-         PaymentOptions, 
-         PaymentSelectionSection, 
          SectionForm, 
          TotalInfo 
         } from "./styles";
+import * as zod from "zod";
 import { CoffeeQuantitySelector } from "./components/CoffeeQuantitySelector";
 import { CoffeeContext } from "../../contexts/CoffeeContext";
-import { useContext, useState } from "react";
-
-
-// const newCheckoutFormValidationSchema = zod.object({
-
-// })
+import { useContext } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { NewCheckoutForm } from "./components/NewCheckoutForm";
+import { useNavigate } from 'react-router-dom';
 
 export interface CoffeeItemCheckout{
     id: number;
@@ -27,108 +22,97 @@ export interface CoffeeItemCheckout{
     price: number;
 }
 
+const newCheckoutFormValidationSchema = zod.object({
+    cep: zod.string().regex(/^[0-9]{5}-?[0-9]{3}$/, 'CEP inválido'),
+    street: zod.string().min(1,'O campo Rua é obrigatório!'),
+    houseNumber: zod.union([
+      zod.string().min(1,'Número é obrigatório e não pode estar vazio'),
+      zod.number().gt(0, 'Número deve ser maior que 0' )
+    ]),
+    complement: zod.string().optional(),
+    neighborhood: zod.string().min(1, 'Bairro é obrigatório'),
+    city: zod.string().min(1, 'Cidade é obrigatória' ),
+    state: zod.string().length(2, 'Estado deve ter exatamente 2 caracteres'),
+    paymentMethod: zod.enum(['credit', 'debit', 'pix'], { 
+      errorMap: () => ({ message: 'Selecione uma forma de pagamento!' }) 
+    }),
+  });
+
+type NewCheckoutFormData = zod.infer<typeof newCheckoutFormValidationSchema>;
+
 export function Checkout(){
-    const { coffeeList, totalPrice } = useContext(CoffeeContext);
-    const [isChecked, setChecked] = useState("");
+    const { coffeeList, totalPrice, emptyCart } = useContext(CoffeeContext);
+    const navigate = useNavigate();
 
-    function handleCreateNewCheckout(){
+    const newCheckoutForm = useForm<NewCheckoutFormData>({
+        resolver: zodResolver(newCheckoutFormValidationSchema),
+        defaultValues: {
+          cep: '',
+          street: '',
+          houseNumber: '',
+          complement: '',
+          neighborhood: '',
+          city: '',
+          state: '',
+          paymentMethod: undefined,
+        },
+      });
 
+    //para debugar a submissão do form
+    //console.log(newCheckoutForm.formState.errors);
+
+    const { handleSubmit, reset } = newCheckoutForm;
+    //const fields = watch(["cep", "street", "houseNumber", "neighborhood", "city", "state", "paymentMethod"]);
+
+        function handleCreateNewCheckout(data: NewCheckoutFormData){
+            //console.log(data); // Processa os dados do formulário
+            emptyCart(); // esvazia o carrinho
+            reset(); // reseta o formulário
+            navigate('/delivery-confirmation', {state: {formData: data}}); // Redireciona para a rota '/x'
     }
 
     return (
         <ContainerMain>
-            <SectionForm>
-                <h4>Complete seu pedido</h4>
-                <form action="" onSubmit={handleCreateNewCheckout}>
-                    <DeliveryInfoContainer>
-                        <div>
-                            <MapPinLine size={16} />
-                            <div className="title">
-                                <h5>Endereço de Entrega</h5>
-                                <p>Informe o endereço onde deseja receber seu pedido</p>
-                            </div>
+            <form onSubmit={handleSubmit(handleCreateNewCheckout)}>
+                <SectionForm>
+                    <h4>Complete seu pedido</h4>
+                        <FormProvider {...newCheckoutForm}>
+                            <NewCheckoutForm />
+                        </FormProvider>
+                        {/* <ConfirmButton type="submit">CONFIRMAR PEDIDO</ConfirmButton> */}
+                </SectionForm>
+                <CheckoutPriceContainer>
+                    <h4>Cafés selecionados</h4>
+                    <CheckoutPriceConfirmationContainer>
+                        <div className="container">
+                            {coffeeList.map((coffee:CoffeeItemCheckout) => {
+                                if(coffee.quantity != 0){
+                                    return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
+                                }
+                            })}
                         </div>
-                            <div className="first-section">
-                                <Input className="cep" type="text" placeholder="CEP"/>
-                                <Input type="text" placeholder="Rua"/>
-                            </div>
-                            <div className="second-section">
-                                <Input type="text" placeholder="Número"/>
-                                <Input className="complement" type="text" placeholder="Complemento"/>
-                            </div>
-                            <div  className="third-section">
-                                <Input type="text" placeholder="Bairro"/>
-                                <Input type="text" placeholder="Cidade"/>
-                                <Input type="text" placeholder="UF"/>
-                            </div>
-                    </DeliveryInfoContainer>
-
-                    <PaymentSelectionSection>
-                        <div>
-                            <CurrencyDollar size={16}/>
-                            <div>
-                                <h5>Pagamento</h5>
-                                <p>O pagamento é feito na entrega. Escolha a forma que deseja pagar</p>
-                            </div>
-                        </div>
-                        <PaymentOptions>
-                            <div className={isChecked==="credit" ? "checked" : ""} onClick={() => setChecked("credit")}>
-                                <CreditCard className="purple-icon" size={16} />
-                                <input type="radio" id="credit" name="drone" value="credit" />
-                                <label htmlFor="credit">Cartão de Crédito</label>
-                            </div>
-
-                            <div className={isChecked==="debit" ? "checked" : ""}>
-                                <Bank className="purple-icon" size={16} />
-                                <input type="radio" id="debit" name="drone" value="debit" onClick={() => setChecked("debit")} />
-                                <label htmlFor="debit">Cartão de Débito</label>
-                            </div>
-
-                            <div className={isChecked==="cash" ? "checked" : ""} onClick={() => setChecked("cash")}>
-                                <Money className="purple-icon" size={16} />
-                                <input type="radio" id="cash" name="drone" value="cash" />
-                                <label htmlFor="cash">Dinheiro</label>
-                            </div>
-                        </PaymentOptions>
-                    </PaymentSelectionSection>
-                </form>
-            </SectionForm>
-
-            <CheckoutPriceContainer>
-                <h4>Cafés selecionados</h4>
-                <CheckoutPriceConfirmationContainer>
-                    <div className="container">
-                        {coffeeList.map((coffee:CoffeeItemCheckout) => {
-                            if(coffee.quantity != 0){
-                                return <CoffeeQuantitySelector key={coffee.id} name={coffee.name} img={coffee.img} id={coffee.id} quantity={coffee.quantity} price={coffee.price}/>
-                            }
-                        })}
-                        {/* <CoffeeQuantitySelector />
-                        <CoffeeQuantitySelector />
-                        <CoffeeQuantitySelector /> */}
-                    </div>
-                    
-                    <TotalInfo>
-                        <span>
-                            <p>Total de Itens</p>
-                            <p>R$ {totalPrice.toFixed(2)}</p>
-                        </span>
-
-                        <span>
-                            <p>Entrega</p>
-                            <p>R$ 3,50</p>
-                        </span>
-
-                        <span>
-                            <p><strong>Total</strong></p>
-                            <p><strong>R$ {(totalPrice+3.5).toFixed(2)}</strong></p>
-                        </span>
                         
-                    </TotalInfo>
-                    <ConfirmButton>CONFIRMAR PEDIDO</ConfirmButton>
-                </CheckoutPriceConfirmationContainer>
-            </CheckoutPriceContainer>
+                        <TotalInfo>
+                            <span>
+                                <p>Total de Itens</p>
+                                <p>R$ {totalPrice.toFixed(2)}</p>
+                            </span>
 
+                            <span>
+                                <p>Entrega</p>
+                                <p>R$ 3,50</p>
+                            </span>
+
+                            <span>
+                                <p><strong>Total</strong></p>
+                                <p><strong>R$ {(totalPrice+3.5).toFixed(2)}</strong></p>
+                            </span>
+                            
+                        </TotalInfo>
+                        <ConfirmButton className={totalPrice == 0 ? "not-available" : ""} disabled={totalPrice==0} type="submit">CONFIRMAR PEDIDO</ConfirmButton>
+                    </CheckoutPriceConfirmationContainer>
+                </CheckoutPriceContainer>
+            </form>
         </ContainerMain>
     );
 }

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 
 export const InputContainer = styled.div`
+    display: flex;
 
     input{
         text-align: center;
-        width: 30px;
+        width: 20px;
         height: 38px;
         padding: 9px 0 9px 0;
         background-color: ${props => props.theme["base-button"]};

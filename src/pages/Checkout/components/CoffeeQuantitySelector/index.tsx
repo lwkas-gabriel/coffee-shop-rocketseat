@@ -22,7 +22,7 @@ export function CoffeeQuantitySelector({id, name, img, quantity, price}:CoffeeIt
                 <p>{name}</p>
                 <OperationContainer>
                     <InputQuantitySelection id={id} quantity={quantity}/>
-                    <button onClick={handleRemoveItem} className="btn">
+                    <button type="button" onClick={handleRemoveItem} className="btn">
                         <span>
                             <Trash size={16}/>
                             <p>Remover</p>

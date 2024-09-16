@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+    max-width: 100%;
     display: flex;
-    align-items: start;
-    justify-content: space-evenly;
+    justify-content: space-around;
     gap: 20px;
     padding-bottom: 24px;
     border-bottom: 1px solid ${props => props.theme["base-button"]};
@@ -17,6 +17,10 @@ export const Container = styled.div`
         color: ${props => props.theme["base-text"]};
         font-weight: bold;
         font-size: 16px;
+    }
+
+    @media(max-width: 375px){
+        gap: 5px;
     }
 `
 
@@ -35,10 +39,6 @@ export const OperationContainer = styled.div`
     justify-content: space-evenly;
     flex-direction: row;
     gap: 8px;
-
-    @media (max-width: 500px){
-        //flex-direction: column;
-    }
 
     .btn{
         color: ${props => props.theme["base-text"]};
