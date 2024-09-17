@@ -13,7 +13,8 @@ import Havaiano from "../assets/Type=Havaiano.png";
 import Arabe from "../assets/Type=Árabe.png";
 import Irlandes from "../assets/Type=Irlandês.png";
 import { createContext, ReactNode, useReducer } from "react";
-import { CoffeeEntity, coffeeReducer } from "../reducers/coffees";
+import { coffeeReducer } from "../reducers/coffees/reducers";
+import { addOneItemAction, CoffeeEntity, emptyCartAction, removeItemAction, removeOneItemAction } from "../reducers/coffees/actions";
 
 const CoffeeList = [
     {id: 1, img: ExpressoTradicional, name: "Expresso Tradicional", tags: ["Tradicional"], description: "O tradicional café feito com água quente e grãos moídos.", price: 9.90, quantity: 0},
@@ -34,7 +35,6 @@ const CoffeeList = [
 
 interface CoffeeContextType {
     coffeeList: CoffeeEntity[];
-    //setCoffeeList: React.Dispatch<React.SetStateAction<CoffeeEntity[]>>;
     totalPrice: number;
     addOneItem: (id: number) => void;
     removeOneItem: (id: number) => void;
@@ -52,7 +52,6 @@ interface CoffeeContextProviderProps{
 export function CoffeeContextProvider({
     children,
 } : CoffeeContextProviderProps){
-    //const [coffeeList, setCoffeeList] = useState(CoffeeList);
     const [coffeeList, dispatch] = useReducer(coffeeReducer, CoffeeList);
 
     const initialTotal = 0;
@@ -76,13 +75,7 @@ export function CoffeeContextProvider({
             }
             return coffee;
         });
-        dispatch({
-            type: 'ADD_ONE_ITEM',
-            payload: {
-                listWithOnePlusItem
-            },
-        });
-        //setCoffeeList(listWithOnePlusItem);
+        dispatch(addOneItemAction(listWithOnePlusItem));
     }
 
     function removeOneItem(id: number){
@@ -92,13 +85,7 @@ export function CoffeeContextProvider({
             }
             return coffee;
         });
-        dispatch({
-            type: 'REMOVE_ONE_ITEM',
-            payload: {
-                listWithMinusOneItem
-            },
-        });
-        //setCoffeeList(listWithMinusOneItem);
+        dispatch(removeOneItemAction(listWithMinusOneItem));
     }
 
     function removeItemFromCart(id: number){
@@ -108,13 +95,7 @@ export function CoffeeContextProvider({
             }
             return coffee;
         });
-        dispatch({
-            type: 'REMOVE_FROM_CART',
-            payload: {
-                listWithCoffeeItemBackToZero
-            },
-        });
-        //setCoffeeList(listWithCoffeeItemBackToZero);
+        dispatch(removeItemAction(listWithCoffeeItemBackToZero));
     }
 
     function emptyCart(){
@@ -124,12 +105,7 @@ export function CoffeeContextProvider({
             }
             return coffee;
         });
-        dispatch({
-            type: 'EMPTY_CART',
-            payload: {
-                quantitiesBackToZeroList
-            },
-        });
+        dispatch(emptyCartAction(quantitiesBackToZeroList));
         //setCoffeeList(quantitiesBackToZeroList);
     }
 
