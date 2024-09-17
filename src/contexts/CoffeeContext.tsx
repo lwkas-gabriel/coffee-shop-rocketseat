@@ -13,6 +13,7 @@ import Havaiano from "../assets/Type=Havaiano.png";
 import Arabe from "../assets/Type=Árabe.png";
 import Irlandes from "../assets/Type=Irlandês.png";
 import { createContext, ReactNode, useReducer } from "react";
+import { CoffeeEntity, coffeeReducer } from "../reducers/coffees";
 
 const CoffeeList = [
     {id: 1, img: ExpressoTradicional, name: "Expresso Tradicional", tags: ["Tradicional"], description: "O tradicional café feito com água quente e grãos moídos.", price: 9.90, quantity: 0},
@@ -30,16 +31,6 @@ const CoffeeList = [
     {id: 13, img: Arabe, name: "Árabe", tags: ["Especial"], description: "Bebida preparada com grãos de café árabe e especiarias.", price: 9.90, quantity: 0},
     {id: 14, img: Irlandes, name: "Irlandês", tags: ["Especial", "Alcoólico"], description: "Bebida a base de café, uísque irlandês, açúcar e chantilly.", price: 9.90, quantity: 0}
 ];
-
-export interface CoffeeEntity{
-    id: number;
-    img: string;
-    name: string;
-    tags: string[];
-    description: string;
-    price: number;
-    quantity: number;
-}
 
 interface CoffeeContextType {
     coffeeList: CoffeeEntity[];
@@ -62,23 +53,7 @@ export function CoffeeContextProvider({
     children,
 } : CoffeeContextProviderProps){
     //const [coffeeList, setCoffeeList] = useState(CoffeeList);
-    const [coffeeList, dispatch] = useReducer((state: CoffeeEntity[], action: any)=> {
-        console.log(state);
-        console.log(action);
-
-        switch(action.type){
-            case 'ADD_ONE_ITEM':
-                return action.payload.listWithOnePlusItem;
-            case 'REMOVE_ONE_ITEM':
-                return action.payload.listWithMinusOneItem;
-            case 'REMOVE_FROM_CART':
-                return action.payload.listWithCoffeeItemBackToZero;
-            case 'EMPTY_CART':
-                return action.payload.quantitiesBackToZeroList;
-            default:
-                return state
-        }
-    }, CoffeeList);
+    const [coffeeList, dispatch] = useReducer(coffeeReducer, CoffeeList);
 
     const initialTotal = 0;
     const totalPrice = coffeeList
