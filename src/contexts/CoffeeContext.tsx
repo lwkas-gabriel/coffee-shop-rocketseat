@@ -12,7 +12,7 @@ import Cubano from "../assets/Type=Cubano.png";
 import Havaiano from "../assets/Type=Havaiano.png";
 import Arabe from "../assets/Type=Árabe.png";
 import Irlandes from "../assets/Type=Irlandês.png";
-import { createContext, ReactNode, useReducer } from "react";
+import { createContext, ReactNode, useEffect, useReducer } from "react";
 import { coffeeReducer } from "../reducers/coffees/reducers";
 import { addOneItemAction, CoffeeEntity, emptyCartAction, removeItemAction, removeOneItemAction } from "../reducers/coffees/actions";
 
@@ -52,7 +52,18 @@ interface CoffeeContextProviderProps{
 export function CoffeeContextProvider({
     children,
 } : CoffeeContextProviderProps){
-    const [coffeeList, dispatch] = useReducer(coffeeReducer, CoffeeList);
+    const [coffeeList, dispatch] = useReducer(coffeeReducer, CoffeeList,
+        () => {
+            const storedStateAsJSON = localStorage.getItem('@coffee-shop-rocketseat:coffee-list-1.0.0');
+            if(storedStateAsJSON){
+                return JSON.parse(storedStateAsJSON);
+            }
+        });
+
+    useEffect(()=>{
+        const stateJSON = JSON.stringify(coffeeList);
+        localStorage.setItem('@coffee-shop-rocketseat:coffee-list-1.0.0', stateJSON);
+    }, [coffeeList]);
 
     const initialTotal = 0;
     const totalPrice = coffeeList
