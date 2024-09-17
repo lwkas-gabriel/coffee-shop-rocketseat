@@ -12,7 +12,7 @@ import Cubano from "../assets/Type=Cubano.png";
 import Havaiano from "../assets/Type=Havaiano.png";
 import Arabe from "../assets/Type=Árabe.png";
 import Irlandes from "../assets/Type=Irlandês.png";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useReducer } from "react";
 
 const CoffeeList = [
     {id: 1, img: ExpressoTradicional, name: "Expresso Tradicional", tags: ["Tradicional"], description: "O tradicional café feito com água quente e grãos moídos.", price: 9.90, quantity: 0},
@@ -43,7 +43,7 @@ export interface CoffeeEntity{
 
 interface CoffeeContextType {
     coffeeList: CoffeeEntity[];
-    setCoffeeList: React.Dispatch<React.SetStateAction<CoffeeEntity[]>>;
+    //setCoffeeList: React.Dispatch<React.SetStateAction<CoffeeEntity[]>>;
     totalPrice: number;
     addOneItem: (id: number) => void;
     removeOneItem: (id: number) => void;
@@ -58,69 +58,110 @@ interface CoffeeContextProviderProps{
     children: ReactNode;
 }
 
-export function CoffeeContextProvider({children} : CoffeeContextProviderProps){
-    const [coffeeList, setCoffeeList] = useState(CoffeeList);
-    
+export function CoffeeContextProvider({
+    children,
+} : CoffeeContextProviderProps){
+    //const [coffeeList, setCoffeeList] = useState(CoffeeList);
+    const [coffeeList, dispatch] = useReducer((state: CoffeeEntity[], action: any)=> {
+        console.log(state);
+        console.log(action);
+
+        switch(action.type){
+            case 'ADD_ONE_ITEM':
+                return action.payload.listWithOnePlusItem;
+            case 'REMOVE_ONE_ITEM':
+                return action.payload.listWithMinusOneItem;
+            case 'REMOVE_FROM_CART':
+                return action.payload.listWithCoffeeItemBackToZero;
+            case 'EMPTY_CART':
+                return action.payload.quantitiesBackToZeroList;
+            default:
+                return state
+        }
+    }, CoffeeList);
+
     const initialTotal = 0;
     const totalPrice = coffeeList
         .filter(
-            (coffee) => coffee.quantity > 0)
+            (coffee:CoffeeEntity) => coffee.quantity > 0)
         .reduce(
-            (accumulator, currentValue) => accumulator + (currentValue.price*currentValue.quantity),
+            (accumulator:number, currentValue:CoffeeEntity) => accumulator + (currentValue.price*currentValue.quantity),
             initialTotal,
         )
     ;
 
     const cartCounter = coffeeList.filter(
-        (coffee) => coffee.quantity > 0
+        (coffee:CoffeeEntity) => coffee.quantity > 0
     ).length;
 
     function addOneItem(id: number){
-        const listWithOnePlusItem: CoffeeEntity[] = coffeeList.map(coffee => {
+        const listWithOnePlusItem: CoffeeEntity[] = coffeeList.map((coffee:CoffeeEntity) => {
             if(coffee.id === id){
                 return {...coffee, quantity: coffee.quantity+1};
             }
             return coffee;
         });
-        //console.log(listWithOnePlusItem);
-        setCoffeeList(listWithOnePlusItem);
+        dispatch({
+            type: 'ADD_ONE_ITEM',
+            payload: {
+                listWithOnePlusItem
+            },
+        });
+        //setCoffeeList(listWithOnePlusItem);
     }
 
     function removeOneItem(id: number){
-        const listWithMinusOneItem: CoffeeEntity[] = coffeeList.map(coffee => {
+        const listWithMinusOneItem: CoffeeEntity[] = coffeeList.map((coffee:CoffeeEntity) => {
             if(coffee.id === id && coffee.quantity > 0){
                 return {...coffee, quantity: coffee.quantity-1};
             }
             return coffee;
         });
-        setCoffeeList(listWithMinusOneItem);
+        dispatch({
+            type: 'REMOVE_ONE_ITEM',
+            payload: {
+                listWithMinusOneItem
+            },
+        });
+        //setCoffeeList(listWithMinusOneItem);
     }
 
     function removeItemFromCart(id: number){
-        const listWithCoffeeItemBackToZero: CoffeeEntity[] = coffeeList.map(coffee => {
+        const listWithCoffeeItemBackToZero: CoffeeEntity[] = coffeeList.map((coffee:CoffeeEntity) => {
             if(coffee.id === id){
                 return {...coffee, quantity: 0};
             }
             return coffee;
         });
-        setCoffeeList(listWithCoffeeItemBackToZero);
+        dispatch({
+            type: 'REMOVE_FROM_CART',
+            payload: {
+                listWithCoffeeItemBackToZero
+            },
+        });
+        //setCoffeeList(listWithCoffeeItemBackToZero);
     }
 
     function emptyCart(){
-        const quantitiesBackToZeroList: CoffeeEntity[] = coffeeList.map(coffee => {
+        const quantitiesBackToZeroList: CoffeeEntity[] = coffeeList.map((coffee:CoffeeEntity) => {
             if(coffee.quantity >= 0){
                 return {...coffee, quantity: 0};
             }
             return coffee;
         });
-        setCoffeeList(quantitiesBackToZeroList);
+        dispatch({
+            type: 'EMPTY_CART',
+            payload: {
+                quantitiesBackToZeroList
+            },
+        });
+        //setCoffeeList(quantitiesBackToZeroList);
     }
 
     return(
         <CoffeeContext.Provider
             value={{
                 coffeeList,
-                setCoffeeList,
                 totalPrice,
                 addOneItem,
                 removeOneItem,
