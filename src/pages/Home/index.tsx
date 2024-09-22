@@ -2,8 +2,9 @@ import { Coffee, Package, ShoppingCart, Timer } from "@phosphor-icons/react";
 import image from "../../assets/copo-marca.png"
 import { BannerSection, InfoSection, Info, BulletsContainer, BulletContaier, Bullet, StoreSection, MainContainer, CardsContainer } from "./styles";
 import { CoffeeCard } from "./components/CoffeeCard";
-import { CoffeeEntity, CoffeeContext } from "../../contexts/CoffeeContext";
+import { CoffeeContext } from "../../contexts/CoffeeContext";
 import { useContext } from "react";
+import { CoffeeEntity } from "../../reducers/coffees/actions"
 
 export function Home(){
     const { coffeeList } = useContext(CoffeeContext);
