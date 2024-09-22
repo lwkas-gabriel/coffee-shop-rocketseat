@@ -1,7 +1,7 @@
 import { ShoppingCart } from "@phosphor-icons/react";
 import { CardContainer, Input, PriceContainer } from "./styles";
 import { InputQuantitySelection } from "../../../../components/InputQuatitySelection";
-import { CoffeeEntity } from "../../../../contexts/CoffeeContext";
+import { CoffeeEntity } from "../../../../reducers/coffees/actions";
 import { NavLink } from "react-router-dom";
 
 export function CoffeeCard({id, name, img, tags, description, price, quantity } : CoffeeEntity){
