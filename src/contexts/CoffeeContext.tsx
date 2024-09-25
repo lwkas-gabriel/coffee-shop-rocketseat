@@ -58,11 +58,12 @@ export function CoffeeContextProvider({
             if(storedStateAsJSON){
                 return JSON.parse(storedStateAsJSON);
             }
+            return CoffeeList;
         });
 
     useEffect(()=>{
         const stateJSON = JSON.stringify(coffeeList);
-        localStorage.setItem('@coffee-shop-rocketseat:coffee-list-1.0.0', stateJSON);
+        localStorage.setItem('@coffee-shop-rocketseat:coffee-list-1.0.1', stateJSON);
     }, [coffeeList]);
 
     const initialTotal = 0;
