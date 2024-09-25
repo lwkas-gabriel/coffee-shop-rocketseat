@@ -37,12 +37,17 @@ export const SectionForm = styled.section`
 export const CheckoutPriceContainer = styled.section`
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 400px;
+
 
     h4{
         font-family: "Baloo 2";
         font-size: 18px;
         color: ${props => props.theme["base-subtitle"]};
+    }
+
+    @media(max-width:768px){
+        width: 90%;
     }
 `
 
