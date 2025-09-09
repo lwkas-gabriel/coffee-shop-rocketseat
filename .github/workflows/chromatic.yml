@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -31,7 +33,7 @@ jobs:
           autoAcceptChanges: false
           exitZeroOnChanges: false
 
-      - name: Comment PR with Chromatic link
+      - name: Comment PR with Chromatic links
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
